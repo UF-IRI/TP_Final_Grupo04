@@ -2,6 +2,10 @@
 #include <iostream>
 #include <ctime>
 using namespace std;
+
+///*num Especialidad { hematologia,estomatologia, anestesiologia, nefrologia, psiquiatria, endocrinologia, reumatologia, genetica, hepatologia, pediatria,
+//    geriatria,cardiologia,gastroenterologia,medicina_intensiva,medicina_forence,toxicologia,nutrilogia,oncologia_medica,medicina_ionterna,alegologia, infectologia,
+//neurologia};*/
 typedef struct Consultas {
 
 	string DNI;
@@ -47,3 +51,11 @@ typedef struct Pacientes {
 	string Estado; //son 3: n/c,fallecio, internado
 	string Obra_soc;
 };
+
+bool chequear_DNI(string dni);
+bool chequeo_AyN(string& AyN); // esta funcion chequea nombre y apellidos de pacientes
+bool chequeo_celular(string cel);
+bool chequeo_direccion(string direc);
+bool chequeo_Mail(string mail);
+
+bool chequeo_especialedad(string e);
