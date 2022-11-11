@@ -57,5 +57,5 @@ bool chequeo_AyN(string& AyN); // esta funcion chequea nombre y apellidos de pac
 bool chequeo_celular(string cel);
 bool chequeo_direccion(string direc);
 bool chequeo_Mail(string mail);
-
+bool chequeargenero(char letra);
 bool chequeo_especialedad(string e);
