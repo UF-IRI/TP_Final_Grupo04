@@ -3,6 +3,7 @@
 #include<cstdlib>
 #include<cstring>
 #include<ctime>
+#include<fstream>
 using namespace std;
 ///*num Especialidad { hematologia,estomatologia, anestesiologia, nefrologia, psiquiatria, endocrinologia, reumatologia, genetica, hepatologia, pediatria,
 //    geriatria,cardiologia,gastroenterologia,medicina_intensiva,medicina_forence,toxicologia,nutrilogia,oncologia_medica,medicina_ionterna,alegologia, infectologia,
@@ -43,7 +44,7 @@ typedef struct Obra_Social {
 
 };
 
-typedef struct Pacientes {
+typedef struct Paciente {
 	string DNI;
 	string Nombre;
 	string Apellido;
@@ -52,7 +53,7 @@ typedef struct Pacientes {
 	string Estado; //son 3: n/c,fallecio, internado
 	string Obra_soc;
 };
-
+bool leer_pacientes(string nombredearchivo,Paciente*& Lista_pacientes, int* tam );//esta funcion lee archivo pacientes.csv y los guarda en lista
 bool chequear_DNI(string dni);
 bool chequeo_AyN(string& AyN); // esta funcion chequea nombre y apellidos de pacientes
 bool chequeo_telefono(string tel);

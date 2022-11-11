@@ -1,7 +1,6 @@
 
 #include"funciones.h"
 
-
 bool chequear_DNI(string dni) {
 
     int tam = dni.length();//devuelvo el tamanio del string
@@ -189,3 +188,26 @@ bool chequeargenero(char letra)
 //
 //    return false;
 //}
+bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam)
+{//devuelve la lista carga y su tam por derecha
+    fstream archivo;
+    archivo.open(nombredearchivo, ios::in);//abro en modo escritura
+    if (!(archivo.is_open()))
+    {
+        return false;//error
+    }
+    if (Lista_pacientes == NULL)
+    {
+        return false;
+    }
+    Paciente aux;//creo un paciente auxiliar
+    string header;//creo el header
+
+    //leeo el header
+
+    //recorro el archivo
+    while (archivo)
+    {
+        
+    }
+}
