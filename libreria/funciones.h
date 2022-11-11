@@ -55,8 +55,12 @@ typedef struct Pacientes {
 
 bool chequear_DNI(string dni);
 bool chequeo_AyN(string& AyN); // esta funcion chequea nombre y apellidos de pacientes
+bool chequeo_telefono(string tel);
 bool chequeo_celular(string cel);
+bool chequeo_matricula(string matricula);
 bool chequeo_direccion(string direc);
 bool chequeo_Mail(string mail);
 bool chequeargenero(char letra);
+bool chequearfecha_nacimiento();
+bool chequeoObra_social(string Obra_soc, string listaObra_soc, int tam);//mira lista de obras sociales creada a partir de obrassociales.csv
 bool chequeo_especialedad(string e);

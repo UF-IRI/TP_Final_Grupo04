@@ -38,7 +38,44 @@ bool chequeo_AyN(string& AyN) {
     return true;
 
 }
-bool chequeo_celular(string cel) {
+bool chequeo_telefono(string tel) {
+
+    int tam = tel.length();//devuelvo el tamanio del string
+
+    if (tam!=13) {
+
+        return false;
+    }
+    for (int i = 1; i < tam; i++) {
+
+        if (tel[i] < '0' || tel[i] > '9' || tel[i] != '-') {
+            return false;
+        }
+
+    }
+
+    return true;
+}
+bool chequeo_matricula(string matricula) 
+{
+    int tam = matricula.length();//devuelvo el tamanio del string
+
+    if (tam != 12) {
+
+        return false;
+    }
+    for (int i = 1; i < tam; i++) {
+
+        if (matricula[i] < '0' || matricula[i] > '9' || matricula[i] != '-') {
+            return false;
+        }
+
+    }
+
+    return true;
+}
+bool chequeo_celular(string cel) 
+{//chequea numeros telefonicos que tengan el +, por ejem:+54 000 876 6543
 
     int tam = cel.length();//devuelvo el tamanio del string
 
@@ -57,9 +94,8 @@ bool chequeo_celular(string cel) {
 
     return true;
 }
-
 bool chequeo_direccion(string direc)
-{
+{//chequea que las direcciones esten formada por letras, espacios o numeros
     int tam = direc.length();
 
     for (int i = 0; i < tam; i++) {
@@ -88,7 +124,14 @@ bool chequeo_Mail(string mail)
 
     return false;
 }
+bool chequeargenero(char letra)
+{
+    if (letra != 'M' && letra != 'F'&& letra!='m' && letra!='f')
+    {//chequeamos mayusculas y min
+        return false;//no es un genero q el hospital considera
+    }
 
+}
 //bool chequeo_especialedad(string e)
 //{
 //
