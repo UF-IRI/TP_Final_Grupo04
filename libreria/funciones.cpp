@@ -4,7 +4,7 @@
 bool chequear_DNI(string dni) {
 
     int tam = dni.length();//devuelvo el tamanio del string
-    if (tam != 7 && tam != 8) {
+    if (tam != 9) {
         return false; //por si el paciente tiene en su DNI 8 a 7 cifras
     }
     for (int i = 0; i < tam; i++) {
@@ -99,10 +99,13 @@ bool chequeo_direccion(string direc)
 
     for (int i = 0; i < tam; i++) {
         if ((direc[i] >= 'a' && direc[i] <= 'z') || (direc[i] >= 'A' && direc[i] <= 'Z') || (direc[i] == ' ') || (direc[i] < '0' || direc[i] > '9')) {
-            return true;
+           
+        }
+        else {
+            return false;
         }
 
-        return false;
+        return true;
     }
 }
 
@@ -131,6 +134,38 @@ bool chequeargenero(char letra)
     }
 
 }
+ bool chequeoObra_social(string Obra_soc, string *listaObra_soc, int tam) {
+
+     for (int i = 0; i < tam; i++) {
+
+         if (Obra_soc == listaObra_soc[i]) {
+             return true;
+         }
+
+     }
+     return false;
+
+
+}
+ bool chequeo_especialedad(string e) {
+
+     int tam = e.length();
+     for (int i = 0; i < tam; i++) {
+
+         if ((e[i] >= 'a' && e[i] <= 'z') || (e[i] >= 'A' && e[i] <= 'Z') || (e[i] == ' ') ) {
+             
+         }
+         else {
+             return true;
+         }
+
+         return false;
+     }
+     
+     
+
+
+ }
 //bool chequeo_especialedad(string e)
 //{
 //
@@ -202,12 +237,37 @@ bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam
     }
     Paciente aux;//creo un paciente auxiliar
     string header;//creo el header
-
+    char coma;
     //leeo el header
+    
+    getline(archivo, header);
+
+    //dni,nombre,apellido,sexo,natalicio,estado,id_os
 
     //recorro el archivo
+
     while (archivo)
     {
-        
+        archivo >> aux.DNI >> coma >> aux.Nombre >> coma >> aux.Apellido >> coma >> aux.Sexo >> coma >> aux. >> coma >> aux.Estado >> coma >> aux.Obra_soc;
     }
+  
+    archivo.close(); // ver fecha
 }
+
+
+bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
+
+    if (lista == false) {
+        return false;
+    }
+    chequear_DNI(aux.DNI);
+    chequeo_AyN(aux.Nombre);
+    chequeo_AyN(aux.Apellido);
+     //chequearfecha_nacimiento
+    chequeargenero(aux.Sexo);
+    //nacionalidad
+    chequeoObra_social(aux.Obra_soc);
+
+}
+
+bool leer_obra_soci(string nombrearchivo, ); // fijarse archivo

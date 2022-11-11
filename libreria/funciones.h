@@ -1,9 +1,10 @@
 #pragma once
 #include<iostream>
 #include<cstdlib>
-#include<cstring>
+#include<string>
 #include<ctime>
 #include<fstream>
+
 using namespace std;
 ///*num Especialidad { hematologia,estomatologia, anestesiologia, nefrologia, psiquiatria, endocrinologia, reumatologia, genetica, hepatologia, pediatria,
 //    geriatria,cardiologia,gastroenterologia,medicina_intensiva,medicina_forence,toxicologia,nutrilogia,oncologia_medica,medicina_ionterna,alegologia, infectologia,
@@ -62,6 +63,7 @@ bool chequeo_matricula(string matricula);
 bool chequeo_direccion(string direc);
 bool chequeo_Mail(string mail);
 bool chequeargenero(char letra);
-bool chequearfecha_nacimiento();
-bool chequeoObra_social(string Obra_soc, string listaObra_soc, int tam);//mira lista de obras sociales creada a partir de obrassociales.csv
+bool chequearfecha_nacimiento(string fecha); // rechequear 
+bool chequeoObra_social(string Obra_soc, string *listaObra_soc, int tam);//mira lista de obras sociales creada a partir de obrassociales.csv
 bool chequeo_especialedad(string e);
+bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam);
