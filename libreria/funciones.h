@@ -67,3 +67,5 @@ bool chequearfecha_nacimiento(string fecha); // rechequear
 bool chequeoObra_social(string Obra_soc, string *listaObra_soc, int tam);//mira lista de obras sociales creada a partir de obrassociales.csv
 bool chequeo_especialedad(string e);
 bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam);
+int buscarpaciente(string dni, Paciente* lista, int tam);//busca al paciente en la lista si lo encuentra devuelv pos,-1 si no esta o error
+bool redimensionar(Paciente*& lista, int* tam, int cant_aumentar);//redimensiona una lista de pacientes

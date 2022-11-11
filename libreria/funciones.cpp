@@ -263,11 +263,60 @@ bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
     chequear_DNI(aux.DNI);
     chequeo_AyN(aux.Nombre);
     chequeo_AyN(aux.Apellido);
-     //chequearfecha_nacimiento
+    //chequearfecha_nacimiento
     chequeargenero(aux.Sexo);
     //nacionalidad
-    chequeoObra_social(aux.Obra_soc);
-
+    //chequeoObra_social(aux.Obra_soc);
+    int pos = buscarpaciente(aux.DNI, lista, *tam);
+    if (pos != -1)
+    {
+        return false;//dni ya se encuentra en la lista
+    }
+    //redimensiono 
+    bool boleano = redimensionar(lista, tam, 1);
+    if (boleano == false) 
+    {
+        return false;//no se logro redimensionar 
+    }
+        //agrego
+        lista[(*tam)] = aux;//agrego al paciente auxiliar
+        return true;
+    
 }
 
-bool leer_obra_soci(string nombrearchivo, ); // fijarse archivo
+//bool leer_obra_soci(string nombrearchivo, ); // fijarse archivo
+
+int buscarpaciente(string dni, Paciente* lista, int tam)
+{
+    if (lista == NULL)
+    {
+        return -1;//error
+    }
+    int i;
+    for(i=0;i<tam;i++)
+    {
+        if (lista[i].DNI == dni) 
+        {
+            return i;
+        }
+    
+    }
+    return -1;//no se encuentra en la lista
+}
+bool redimensionar(Paciente*& lista, int* tam, int cant_aumentar)
+{
+    Paciente* listaaux = new Paciente[*tam+cant_aumentar];
+    //chequeo si se logro pedir memoria adecuadamente
+    if (listaaux == NULL || lista == NULL)
+    {
+        return false;//error
+    }
+    for (int i=0;i<*tam;i++)
+    {
+        listaaux[i] = lista[i];//me voy pasando el contenido
+    }
+    (*tam)= (*tam) +cant_aumentar;
+    delete []lista;
+    lista = listaaux;
+    return true;
+}
