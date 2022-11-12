@@ -51,7 +51,7 @@ typedef struct Paciente {
 	string Apellido;
 	char Sexo;
 	tm Nacimiento;
-	string Estado; //son 3: n/c,fallecio, internado
+	string Estado; //son 3:n/c,fallecio, internado
 	string Obra_soc;
 };
 /// <summary>
@@ -69,7 +69,7 @@ bool leer_pacientes(string nombredearchivo,Paciente*& Lista_pacientes, int* tam 
 /// <param name="dni"></param>
 /// <returns></returns>
 bool chequear_DNI(string dni);
-bool chequeo_AyN(string& AyN); // esta funcion chequea nombre y apellidos de pacientes
+bool chequeo_AyN(string AyN); // esta funcion chequea nombre y apellidos de pacientes
 bool chequeo_telefono(string tel);
 bool chequeo_celular(string cel);
 bool chequeo_matricula(string matricula);
@@ -77,8 +77,10 @@ bool chequeo_direccion(string direc);
 bool chequeo_Mail(string mail);
 bool chequeargenero(char letra);
 bool chequearfecha(int dia, int mes, int anio); //chequea que dia estre entre 0 y 31, mes entre  y 12,anio sean posit 
-bool chequeoObra_social(string Obra_soc, string *listaObra_soc, int tam);//mira lista de obras sociales creada a partir de obrassociales.csv
+bool chequeoObra_social(string Obra_soc, Obra_Social *listaObra_soc, int tam);//mira lista de obras sociales creada a partir de obrassociales.csv
 bool chequeo_especialedad(string e);
+bool chequeoNacimiento(tm fecha);
+bool chequeo_estado(string estado);
 //hay que hace una funcion que chequee que la fecha_nacim sea menor que la actual
 //idea de una funcion que se llame chequear datos, que llame a todos los chequear
 
@@ -88,3 +90,5 @@ int buscarpaciente(string dni, Paciente* lista, int tam);//busca al paciente en 
 bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar);//redimensiona una lista de pacientes
 bool agregar_consulta(Consulta aux, Consulta*& lista, int* tam);//funcion para agregar consultas en una lista
 bool redimensionarc(Consulta*& lista, int* tam, int cant_aumentar);//funcion para redimensionar lista de consultas
+bool Agregar_obrasoc(Obra_Social*& lista, int* tam)
+bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato);

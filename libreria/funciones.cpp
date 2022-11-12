@@ -19,7 +19,7 @@ bool chequear_DNI(string dni) {
 
 }
 
-bool chequeo_AyN(string& AyN) {
+bool chequeo_AyN(string AyN) {
 
 
     int tam = AyN.length();
@@ -108,7 +108,23 @@ bool chequeo_direccion(string direc)
         return true;
     }
 }
-
+bool chequeoNacimiento(tm fecha) {
+    time_t now;
+    struct tm* fecha_actual = localtime(&now);
+    int dia_ac = fecha_actual->tm_mday;
+    int mes_ac = fecha_actual->tm_mon + 1;//devuelve entre 0-11
+    int anio_ac = fecha_actual->tm_year + 1900;
+    
+    if (fecha.tm_year == anio_ac && fecha.tm_mon == mes_ac) {
+        if (fecha.tm_mday < dia_ac)
+            return true;
+        else return false;
+    }
+    if (fecha.tm_year == anio_ac && fecha.tm_mon > mes_ac)
+        return false;
+    if (fecha.tm_year < anio_ac && fecha.tm_mon < mes_ac)
+        return true;
+};
 bool chequeo_Mail(string mail)
 {
     int cont_arr = 0;
@@ -134,11 +150,11 @@ bool chequeargenero(char letra)
     }
 
 }
- bool chequeoObra_social(string Obra_soc, string *listaObra_soc, int tam) {
+ bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
 
      for (int i = 0; i < tam; i++) {
 
-         if (Obra_soc == listaObra_soc[i]) {
+         if (Obra_soc == listaObra_soc[i].obra_soc) {
              return true;
          }
 
@@ -242,8 +258,14 @@ bool chequeargenero(char letra)
      }
  
  }
-
-bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam)
+ bool chequeo_estado(string estado) {
+ 
+     if (estado == "n/c" || estado == "fallecido" || estado == "internado")
+         return true
+     else return false;
+ 
+ };
+bool leer_pacientes(string nombredearchivo,Obra_Social* lista_os, Paciente*& Lista_pacientes, int* tam,int tam_os)
 {//devuelve la lista carga y su tam por derecha
     fstream archivo;
     archivo.open(nombredearchivo, ios::in);//abro en modo escritura
@@ -258,6 +280,7 @@ bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam
     Paciente aux;//creo un paciente auxiliar
     string header;//creo el header
     char coma;
+   
     //leeo el header
     getline(archivo, header);
     int dia = 0;
@@ -269,9 +292,19 @@ bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam
     { //dni,nombre,apellido,sexo,natalicio,estado,id_os
         //para leer la fecha >>barra>>mes>>dia>>anio
         archivo >> aux.DNI >> coma >> aux.Nombre >> coma >> aux.Apellido >> coma >> aux.Sexo >> coma >>mes>>barra>>dia>>barra>>anio>> coma >> aux.Estado >> coma >> aux.Obra_soc;
-    
-        bool auxiliar=agregar_paciente(aux, Lista_pacientes, tam);
-    
+        aux.Nacimiento.tm_mday = dia;
+        aux.Nacimiento.tm_mon = mes;
+        aux.Nacimiento.tm_myear = anio;
+        bool aux1 = chequeoObra_social(aux.Obra_soc,lista_os,tam_os);
+        bool aux2 = chequear_DNI(aux.DNI);
+        bool aux3 = chequeo_AyN(aux.Nombre);
+        bool aux4 = chequeo_AyN(aux.Apellido);
+        bool aux5 = chequeargenero(aux.Sexo);
+        bool aux6 = chequearfecha(aux.Nacimiento);
+        bool aux7 = chequeo_estado(aux.Estado);
+        if(aux1==true && aux2==true && aux3 == true && aux4 == true && aux5 == true && aux6 == true && aux7==true)
+        bool aux_ = agregar_paciente(aux, Lista_pacientes, tam);
+
     }
   
     archivo.close(); // ver fecha
@@ -342,4 +375,38 @@ bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar)
     delete []lista;
     lista = listaaux;
     return true;
+}
+
+bool Leer_Obrasoc(string nombre_arc, Obra_Social*& obrasoc, int* tam)
+{
+    Obra_Social aux;
+    string header;
+    fstream archivo;
+    archivo.open(nombre_arc, ios::in);
+    if (!(archivo.is_open()))
+        return false;
+    getline(archivo, header);
+    while (archivo) {
+        
+        archivo >> aux.id >> aux.obra_soc >> endl;
+        *tam++;
+        Agregar_obrasoc(abrasoc, tam, aux);
+    }
+
+    return false;
+}
+
+bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato) {
+
+    Obra_Social* aux = new Obra_Social[*tam - 1];
+    if (lista == NULL || aux == NULL)
+        return false;
+    for (int i = 0; i < *tam; i++) {
+    
+        aux[i] = lista[i];
+    
+    }
+    aux[*tam - 1] = dato;
+    delete[] lista;
+    lista = aux;
 }
