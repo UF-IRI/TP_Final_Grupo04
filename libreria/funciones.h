@@ -7,7 +7,7 @@
 
 using namespace std;
 ///*num Especialidad { hematologia,estomatologia, anestesiologia, nefrologia, psiquiatria, endocrinologia, reumatologia, genetica, hepatologia, pediatria,
-//    geriatria,cardiologia,gastroenterologia,medicina_intensiva,medicina_forence,toxicologia,nutrilogia,oncologia_medica,medicina_ionterna,alegologia, infectologia,
+// geriatria,cardiologia,gastroenterologia,medicina_intensiva,medicina_forence,toxicologia,nutrilogia,oncologia_medica,medicina_ionterna,alegologia, infectologia,
 //neurologia};*/
 typedef struct Consulta {
 
@@ -41,8 +41,6 @@ typedef struct Medicos {
 typedef struct Obra_Social {
 	unsigned int id;
 	string obra_soc;
-
-
 };
 
 typedef struct Paciente {
