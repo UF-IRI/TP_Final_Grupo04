@@ -223,6 +223,26 @@ bool chequeargenero(char letra)
 //
 //    return false;
 //}
+ bool chequearfecha(int dia, int mes, int anio)
+ {
+     if (dia>0 && mes>0 && anio>0)
+     {
+         if (dia <= 31 && mes <= 12)
+         {
+             return true;
+         }
+         else
+         {
+             return false;//numeros incorrectos 
+         }
+     }
+     else
+     {
+         return false;//no se permiten fechas negativas
+     }
+ 
+ }
+
 bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam)
 {//devuelve la lista carga y su tam por derecha
     fstream archivo;
@@ -239,16 +259,19 @@ bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam
     string header;//creo el header
     char coma;
     //leeo el header
-    
     getline(archivo, header);
-
-    //dni,nombre,apellido,sexo,natalicio,estado,id_os
-
+    int dia = 0;
+    int mes = 0;
+    int anio = 0;
+    char barra;
     //recorro el archivo
-
     while (archivo)
-    {
-        archivo >> aux.DNI >> coma >> aux.Nombre >> coma >> aux.Apellido >> coma >> aux.Sexo >> coma >> aux. >> coma >> aux.Estado >> coma >> aux.Obra_soc;
+    { //dni,nombre,apellido,sexo,natalicio,estado,id_os
+        //para leer la fecha >>barra>>mes>>dia>>anio
+        archivo >> aux.DNI >> coma >> aux.Nombre >> coma >> aux.Apellido >> coma >> aux.Sexo >> coma >>mes>>barra>>dia>>barra>>anio>> coma >> aux.Estado >> coma >> aux.Obra_soc;
+    
+        bool auxiliar=agregar_paciente(aux, Lista_pacientes, tam);
+    
     }
   
     archivo.close(); // ver fecha
@@ -273,7 +296,7 @@ bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
         return false;//dni ya se encuentra en la lista
     }
     //redimensiono 
-    bool boleano = redimensionar(lista, tam, 1);
+    bool boleano = redimensionarp(lista, tam, 1);
     if (boleano == false) 
     {
         return false;//no se logro redimensionar 
@@ -303,17 +326,17 @@ int buscarpaciente(string dni, Paciente* lista, int tam)
     }
     return -1;//no se encuentra en la lista
 }
-bool redimensionar(Paciente*& lista, int* tam, int cant_aumentar)
+bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar)
 {
-    Paciente* listaaux = new Paciente[*tam+cant_aumentar];
+    Paciente* listaaux = new Paciente[(*tam)+ cant_aumentar];
     //chequeo si se logro pedir memoria adecuadamente
     if (listaaux == NULL || lista == NULL)
     {
         return false;//error
     }
-    for (int i=0;i<*tam;i++)
+    for (int i=0;i<(*tam);i++)
     {
-        listaaux[i] = lista[i];//me voy pasando el contenido
+        listaaux[i]=lista[i];//me voy pasando el contenido
     }
     (*tam)= (*tam) +cant_aumentar;
     delete []lista;
