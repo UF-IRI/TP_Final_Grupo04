@@ -99,7 +99,8 @@ int buscar_medico(string matricula, Medicos* lista, int tam);
 bool redimensionar_medicos(Medicos*& lista, int cantidad_aumentar, int* tam);
 bool Redimensionar_Consultas(Consulta*& list, int tam);
 // funciones punto 1 
-Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes , Consulta* lista_consulta, int tam_consulta );
+Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes , Consulta* lista_consulta, int tam_consulta, int* tam_sublista1);
 bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n, Consulta*& new_list); // busca la cantidad de consulta que tiene ese pasiente 
 Consulta consulta_reciente(Consulta* lista, int tam);
 bool archivar_paciente(Paciente aux);
+bool archivo_secretaria(Paciente* lista, int paciente,Consulta* lista_c,int tam_c,Medicos* lista_m,int tam_m,Contactos* lista_contacto, int tam_contacto);

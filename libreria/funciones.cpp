@@ -681,7 +681,7 @@ int buscar_medico(string matricula, Medicos* lista, int tam) {
 
 // funciones del punto 1
 
-Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consulta* lista_consulta, int tam_consulta) {
+Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consulta* lista_consulta, int tam_consulta,int* tam_sublista1) {
 
     if (lista_pacientes == NULL || tam_pacientes == NULL) {
 
@@ -695,6 +695,11 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
     time_t now;
     time(&now);
     struct tm* aux = localtime(&now);
+    Paciente* p = new Paciente[0];
+    *tam_sublista1 = 0;
+    if (p == NULL) {
+        return NULL;
+    }
     for (int i = 0; i < tam_pacientes; i++) {
        bool aux1=buscar_consultas_pacientes(lista_pacientes[i].DNI, lista_consulta, tam_consulta, &tam_sublista, sublista);
        Consulta aux2=consulta_reciente(sublista, tam_sublista);
@@ -704,9 +709,20 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
            }
       }
        else {
-
+           if (aux2.Presento==false) {
+               if (lista_pacientes[i].Estado=="fallecido") {
+                   bool aux4 = archivar_paciente(lista_pacientes[i]);
+               }
+               if (lista_pacientes[i].Estado != "internado") {
+                   agregar_paciente(lista_pacientes[i], p, tam_sublista1);
+               }
+           }
        }
     }
+    return p;
+
+}
+bool archivo_secretaria(Paciente* lista, int paciente, Consulta* lista_c, int tam_c, Medicos* lista_m, int tam_m, Contactos* lista_contacto, int tam_contacto) {
 
 }
 bool archivar_paciente(Paciente aux) {
