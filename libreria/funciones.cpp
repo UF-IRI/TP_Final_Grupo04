@@ -172,7 +172,7 @@ bool chequeargenero(char letra)
 
 }
 
- bool chequeo_especialedad(string e) {
+ bool chequeo_especialidades(string e) { // cambie el nombre de la funcion
 
      int tam = e.length();
      for (int i = 0; i < tam; i++) {
@@ -570,5 +570,161 @@ bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
     //    return true;
     //}
     //else return false; // el anio del turno es menor al solicitado
+
+
+    
+}
+bool leer_medicos(string nombre_archivos, Medicos*& lista, int* tam) {
+
+    fstream archivo;
+
+    archivo.open(nombre_archivos, ios::in);
+
+    if (!(archivo.is_open())) {
+
+        return false;
+    }
+
+    Medicos aux;
+    string header;
+    char coma;
+
+    getline(archivo, header);
+
+    while (archivo) {
+        archivo >> aux.Matricula >> coma >> aux.Nombre >> coma >> aux.Apellido >> coma >> aux.Telefono >> coma >> aux.especialidad >> coma >> aux.activo;
+
+        bool aux1 = chequeo_matricula(aux.Matricula);
+        bool aux2 = chequeo_AyN(aux.Nombre);
+        bool aux3 = chequeo_AyN(aux.Apellido);
+        bool aux4 = chequeo_telefono(aux.Telefono);
+        bool aux5 = chequeo_especialidades(aux.especialidad);
+        if (aux1 == true && aux2 == true && aux3 == true && aux4 == true && aux5 == true) {
+
+            bool aux6 = agregar_medico(aux, lista,  tam); // si todo los chequeos dan bien, agrego medico 
+        }
+
+    }
+    
+    archivo.close();
+    return true; // lo pudo leer 
+}
+
+bool agregar_medico(Medicos aux, Medicos*& lista, int* tam) {
+
+    if (lista == NULL) {
+        return false;
+    }
+    int aux1 = buscar_medico(aux.Matricula, lista, *tam);
+    
+    if (aux1 != -1) {
+
+        return false; // ya esta en la lista el medico
+    }
+
+    bool aux2 = redimensionar_medicos(lista, 1, tam);
+    if (aux2 == false) {
+        return false;
+    }
+    else {
+        lista[*tam] = aux; // guardo el nuevo medico en la lista 
+        return true;
+    }
+
+}
+bool redimensionar_medicos(Medicos*& lista, int cantidad_aumentar, int* tam) {
+
+    Medicos* aux = new Medicos[*tam + cantidad_aumentar];
+    
+    if (lista == NULL || aux == NULL) {
+        return false;
+    }
+
+    for (int i = 0; i < *tam; i++) {
+        aux[i] = lista[i];
+    }
+      
+    delete[] lista;
+    lista = aux; 
+    *tam = *tam + cantidad_aumentar;
+
+    return true; 
+}
+
+int buscar_medico(string matricula, Medicos* lista, int tam) {
+
+    if (lista == NULL) {
+
+        return false;
+
+    }
+    for (int i = 0; i < tam; i++) {
+
+        if (lista[i].Matricula == matricula) {
+
+            return i;
+         }
+    }
+    return -1;
+}
+
+// funciones del punto 1
+
+Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consulta* lista_consulta, int tam_consulta) {
+
+    if (lista_pacientes == NULL || tam_pacientes == NULL) {
+
+        return NULL; // no devuelve nada o se produjo un error
+    }
+
+    Paciente* sub_lista = new Paciente[tam_pacientes];
+    int cont_lista = 0;
+
+    for (int i = 0; i < tam_consulta; i++) {
+
+        for (int j = 0; j < tam_pacientes; j++) {
+
+            if (lista_consulta[i] = lista_pacientes[i]) {// rechequear
+
+             }
+
+        }
+
+
+    }
+
+
+
+
+}
+Consulta* buscar_consultas_pacientes(string dni, Consulta* lista, int tam) {
+    Consulta* lista_aux = new Consulta[tam];
+    
+    int contador_lista = 0;
+
+    for (int i = 0; i < tam; i++) {
+
+        
+        if (lista[i].DNI == dni) {
+            
+            lista_aux[contador_lista] = lista[i];
+                contador_lista++;
+        }
+        }
+      
+      return lista_aux;
+    }
+      
+Consulta consulta_reciente(Consulta* lista, int tam) {
+
+    for (int i = 0; i < tam; i++) {
+
+
+
+    }
+
+
+
+
 
 }
