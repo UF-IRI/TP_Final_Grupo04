@@ -109,13 +109,21 @@ bool chequeo_direccion(string direc)
     }
 }
 bool chequeoNacimiento(tm fecha) {
+    if (fecha.tm_year < 0 + fecha.tm_mon < 0 + fecha.tm_mday < 0)
+        return false;
+    
     time_t now;
     struct tm* fecha_actual = localtime(&now);
     int dia_ac = fecha_actual->tm_mday;
     int mes_ac = fecha_actual->tm_mon + 1;//devuelve entre 0-11
     int anio_ac = fecha_actual->tm_year + 1900;
     
-    if (fecha.tm_year == anio_ac && fecha.tm_mon == mes_ac) {
+    double fecha_hoy = anio_ac * 10000 + mes_ac * 100 + dia_ac;
+    double nacimiento = fecha.tm_year * 10000 + fecha.tm_mon * 100 + fecha.tm_mday;
+    if (nacimiento < fecha_hoy)
+        return true;
+
+    /*if (fecha.tm_year == anio_ac && fecha.tm_mon == mes_ac) {
         if (fecha.tm_mday < dia_ac)
             return true;
         else return false;
@@ -123,7 +131,7 @@ bool chequeoNacimiento(tm fecha) {
     if (fecha.tm_year == anio_ac && fecha.tm_mon > mes_ac)
         return false;
     if (fecha.tm_year < anio_ac && fecha.tm_mon < mes_ac)
-        return true;
+        return true;*/
 };
 bool chequeo_Mail(string mail)
 {
@@ -257,7 +265,6 @@ bool chequeargenero(char letra)
      {
          return false;//no se permiten fechas negativas
      }
- 
  }
  bool chequeo_estado(string estado) {
 
@@ -539,20 +546,29 @@ bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
    
    // double dif = difftime(fecha_turno,fecha_solicitado);
     //no se puede usar difftime porque recive time_t no tm
-    if (fecha_solicitado.tm_year == fecha_turno.tm_year) {
-        if (fecha_solicitado.tm_mon == fecha_turno.tm_mon) {
-            if (fecha_solicitado.tm_mday < fecha_turno.tm_mday)
-                return true;
-            else return false;
-        }
-        else if (fecha_solicitado.tm_mon < fecha_turno.tm_mon)
-            return true;
-        else return false;
-
-    }
-    else if (fecha_solicitado.tm_year < fecha_turno.tm_year) { // si el anio del tueno es mayor al de solicitado
+    if (fecha_solicitado.tm_year < 0 && fecha_solicitado.tm_mon * 100 < 0 && fecha_solicitado.tm_mday < 0 && fecha_turno.tm_year < 0 && fecha_turno.tm_mon < 0 && fecha_turno.tm_mday <0)
+        return false;
+    
+    double fecha1 = fecha_solicitado.tm_year * 10000 + fecha_solicitado.tm_mon * 100 + fecha_solicitado.tm_mday;
+    double fecha2= fecha_turno.tm_year * 10000 + fecha_turno.tm_mon * 100 + fecha_turno.tm_mday;
+    
+    if (fecha1 < fecha2)
         return true;
-    }
-    else return false; // el anio del turno es menor al solicitado
+    else return false;
+    //if (fecha_solicitado.tm_year == fecha_turno.tm_year) {
+    //    if (fecha_solicitado.tm_mon == fecha_turno.tm_mon) {
+    //        if (fecha_solicitado.tm_mday < fecha_turno.tm_mday)
+    //            return true;
+    //        else return false;
+    //    }
+    //    else if (fecha_solicitado.tm_mon < fecha_turno.tm_mon)
+    //        return true;
+    //    else return false;
+
+    //}
+    //else if (fecha_solicitado.tm_year < fecha_turno.tm_year) { // si el anio del tueno es mayor al de solicitado
+    //    return true;
+    //}
+    //else return false; // el anio del turno es menor al solicitado
 
 }
