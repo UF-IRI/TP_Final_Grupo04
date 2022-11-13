@@ -650,8 +650,8 @@ bool redimensionar_medicos(Medicos*& lista, int cantidad_aumentar, int* tam) {
 
     return true; 
 }
-bool Redimensionar_Consultas(Consultas*& list, int tam) {
-    Consulta* aux = new Consula[tam-1];
+bool Redimensionar_Consultas(Consulta*& list, int tam) {
+    Consulta* aux = new Consulta[tam-1];
     if (list == NULL || aux == NULL) {
         return false;
     }
@@ -690,23 +690,37 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
 
     Paciente* sub_lista = new Paciente[tam_pacientes];
     int cont_lista = 0;
+    Consulta* sublista = new Consulta[0];
+    int tam_sublista = 0;
+    time_t now;
+    time(&now);
+    struct tm* aux = localtime(&now);
+    for (int i = 0; i < tam_pacientes; i++) {
+       bool aux1=buscar_consultas_pacientes(lista_pacientes[i].DNI, lista_consulta, tam_consulta, &tam_sublista, sublista);
+       Consulta aux2=consulta_reciente(sublista, tam_sublista);
+       if (aux->tm_year-aux2.Fecha_turno.tm_year>=10) {
+           if (aux2.Presento==false && lista_pacientes[i].Estado=="fallecido") {
+               bool auxa= archivar_paciente(lista_pacientes[i]);
+           }
+      }
+       else {
 
-    for (int i = 0; i < tam_consulta; i++) {
-
-        for (int j = 0; j < tam_pacientes; j++) {
-
-            if (lista_consulta[i] = lista_pacientes[i]) {// rechequear
-
-             }
-
-        }
-
-
+       }
     }
 
-
-
-
+}
+bool archivar_paciente(Paciente aux) {
+    fstream archivo;
+    char coma = ',';
+    char barra = '/';
+    archivo.open("archivados.csv", ios::out | ios::app);
+    if (!(archivo.is_open())) {
+        return false;
+    }
+    archivo << "DNI" << coma << "nombre" << coma << "apellido" << coma << "sexo" << coma << "natalicio" << coma << "estado" << coma << "id_os" << endl;
+    archivo << aux.DNI << coma << aux.Nombre << coma << aux.Apellido << coma << aux.Sexo << coma << aux.Nacimiento.tm_mon << barra << aux.Nacimiento.tm_wday << barra << aux.Nacimiento.tm_year << coma << aux.Estado << coma << aux.Obra_soc << endl;
+    archivo.close();
+    return true;
 }
 bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n, Consulta*& new_list) {
     Consulta* lista_aux = new Consulta[tam];
@@ -730,11 +744,15 @@ bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n
 
 }
 Consulta consulta_reciente(Consulta* lista, int tam) {
-
-    for (int i = 0; i < tam; i++) {
-
-
-
+    double fecha1, fecha2;
+    int pos=0;
+    fecha1 = lista[0].Fecha_turno.tm_year*10000+lista[0].Fecha_turno.tm_mon*100 + lista[0].Fecha_turno.tm_mday;
+    for (int i = 1; i < tam; i++) {
+        fecha2 = lista[i].Fecha_turno.tm_year * 10000 + lista[i].Fecha_turno.tm_mon * 100 + lista[i].Fecha_turno.tm_mday;
+        if (fecha2>fecha1) {
+            fecha1 = fecha2;
+            pos = i;
+        }
     }
-
+    return lista[pos];
 }
