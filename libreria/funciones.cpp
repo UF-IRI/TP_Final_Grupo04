@@ -163,6 +163,7 @@ bool chequeargenero(char letra)
 
 
 }
+
  bool chequeo_especialedad(string e) {
 
      int tam = e.length();
@@ -325,7 +326,7 @@ bool leer_pacientes(string nombredearchivo,Obra_Social* lista_os, Paciente*& Lis
 
 bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
 
-    if (lista == false) {
+    if (lista == NULL) {
         return false;
     }
    
@@ -396,7 +397,7 @@ bool Leer_Obrasoc(string nombre_arc, Obra_Social*& obrasoc, int* tam)
     while (archivo) {
         
         archivo >> aux.id >> aux.obra_soc;
-        *tam++;
+        (* tam)++;
         Agregar_obrasoc(obrasoc, tam, aux);
     }
 
@@ -415,12 +416,21 @@ bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato) {
     }
     for (int i = 0; i < *tam; i++) {
     
-        aux[i] = lista[i];
+        *(aux+i) = lista[i];
     
     }
     aux[*tam - 1] = dato;
     delete[] lista;
     lista = aux;
+}
+void Rand_fecha(int* dia, int* mes, int* anio)
+{
+    srand(time(NULL));
+    *(dia) = rand() % (31 - 1) + 1;//numeros del 30 al 1
+    *(mes)= rand() % (13 - 1) + 1;//numeros del 12 al 1
+    *(anio) = 2023; //rand() % (2026 - 2023) +2023 ; numeros entre 2025 y 2023 (ya se termina el anio)
+
+
 }
 bool agregar_consulta(Consulta aux, Consulta*& lista, int* tam)
 {
@@ -442,7 +452,7 @@ bool redimensionarc(Consulta*& lista, int* tam, int cant_aumentar)
     }
     for (int i=0;i<*tam;i++) 
     {
-        auxiliar[i]=lista[i];
+        *(auxiliar+i)=lista[i];
     }
     delete []lista;
     lista = auxiliar;
@@ -518,7 +528,7 @@ bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
     {
         //id_os,obra_social
         archivo >> aux.id >> aux.obra_soc;
-        //agregar un chequeo de obra social, sea un string
+        //agregar un chequeo de obra social, sea un string(por que? si esta en la lista de obra sociales es valida, ya esta la funcion que hace eso)
         bool auxiliar = Agregar_obrasoc(Lista_obrasoc, tam, aux);//agrega a la lista de obra social
     };
 
@@ -526,7 +536,23 @@ bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
 }
 bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
 {
-    //long int = difftime();
+   
+   // double dif = difftime(fecha_turno,fecha_solicitado);
+    //no se puede usar difftime porque recive time_t no tm
+    if (fecha_solicitado.tm_year == fecha_turno.tm_year) {
+        if (fecha_solicitado.tm_mon == fecha_turno.tm_mon) {
+            if (fecha_solicitado.tm_mday < fecha_turno.tm_mday)
+                return true;
+            else return false;
+        }
+        else if (fecha_solicitado.tm_mon < fecha_turno.tm_mon)
+            return true;
+        else return false;
 
+    }
+    else if (fecha_solicitado.tm_year < fecha_turno.tm_year) { // si el anio del tueno es mayor al de solicitado
+        return true;
+    }
+    else return false; // el anio del turno es menor al solicitado
 
 }

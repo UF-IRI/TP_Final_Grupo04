@@ -33,8 +33,7 @@ typedef struct Medicos {
 	string Nombre;
 	string Apellido;
 	string Telefono;
-	//especialidad consultar a eze
-
+	string especialidad; 
 	bool activo;
 };
 
@@ -77,6 +76,7 @@ bool chequeo_Mail(string mail);
 bool chequeargenero(char letra);
 bool chequearfecha(int dia, int mes, int anio); //chequea que dia estre entre 0 y 31, mes entre  y 12,anio sean posit 
 bool chequeoObra_social(string Obra_soc, Obra_Social *listaObra_soc, int tam);//mira lista de obras sociales creada a partir de obrassociales.csv
+
 bool chequeo_especialedad(string e);
 bool chequeoNacimiento(tm fecha);
 bool chequeo_estado(string estado);
@@ -91,3 +91,5 @@ bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar);//redimension
 bool agregar_consulta(Consulta aux, Consulta*& lista, int* tam);//funcion para agregar consultas en una lista
 bool redimensionarc(Consulta*& lista, int* tam, int cant_aumentar);//funcion para redimensionar lista de consultas
 bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato);
+
+void Rand_fecha(int* dia, int* mes, int* anio);//genera fechas random

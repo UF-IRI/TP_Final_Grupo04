@@ -1,6 +1,6 @@
 ## >>>>>>>>>>>>>>>
 ## >>>>>>>>>>>>>>>
-add_library(iri iri.cpp "funciones.h" "funciones.cpp")
+add_library(iri iri.cpp  )
 ## <<<<<<<<<<<<<<<
 ## <<<<<<<<<<<<<<<
 
