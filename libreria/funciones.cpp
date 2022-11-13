@@ -545,7 +545,7 @@ bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
 {
    
    // double dif = difftime(fecha_turno,fecha_solicitado);
-    //no se puede usar difftime porque recive time_t no tm
+   //no se puede usar difftime porque recive time_t no tm
     if (fecha_solicitado.tm_year < 0 && fecha_solicitado.tm_mon * 100 < 0 && fecha_solicitado.tm_mday < 0 && fecha_turno.tm_year < 0 && fecha_turno.tm_mon < 0 && fecha_turno.tm_mday <0)
         return false;
     
@@ -650,7 +650,18 @@ bool redimensionar_medicos(Medicos*& lista, int cantidad_aumentar, int* tam) {
 
     return true; 
 }
-
+bool Redimensionar_Consultas(Consultas*& list, int tam) {
+    Consulta* aux = new Consula[tam-1];
+    if (list == NULL || aux == NULL) {
+        return false;
+    }
+    for (int i = 0; i < tam; i++) {
+        aux[i] = list[i];
+    }
+    delete[] list;
+    list = aux;
+    return true;
+}
 int buscar_medico(string matricula, Medicos* lista, int tam) {
 
     if (lista == NULL) {
@@ -697,24 +708,27 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
 
 
 }
-Consulta* buscar_consultas_pacientes(string dni, Consulta* lista, int tam) {
+bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n, Consulta*& new_list) {
     Consulta* lista_aux = new Consulta[tam];
-    
+
     int contador_lista = 0;
 
     for (int i = 0; i < tam; i++) {
 
-        
         if (lista[i].DNI == dni) {
-            
+
             lista_aux[contador_lista] = lista[i];
-                contador_lista++;
+            contador_lista++;
+
         }
-        }
-      
-      return lista_aux;
     }
-      
+    *(tam_n) = contador_lista;
+    Redimensionar_Consultas(lista_aux, contador_lista);
+    delete[] new_list;
+    new_list = lista_aux;
+    return true;
+
+}
 Consulta consulta_reciente(Consulta* lista, int tam) {
 
     for (int i = 0; i < tam; i++) {
@@ -722,9 +736,5 @@ Consulta consulta_reciente(Consulta* lista, int tam) {
 
 
     }
-
-
-
-
 
 }
