@@ -722,7 +722,31 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
     return p;
 
 }
-bool archivo_secretaria(Paciente* lista, int paciente, Consulta* lista_c, int tam_c, Medicos* lista_m, int tam_m, Contactos* lista_contacto, int tam_contacto) {
+bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, int tam_c, Medicos* lista_m, int tam_m, Contactos* lista_contacto, int tam_contacto) {
+    
+    fstream archivo;
+    archivo.open("secretaria.csv", ios::out | ios::app);
+    if (!(archivo.is_open()))
+    {
+        return false;
+    }
+    char coma = ',';
+    //escribo el header
+    archivo << "DNI" << "nombre" << coma << "apellido" << coma << "telefo de contacto" << coma << "matricula medico" << coma << "apellido medico" << coma << "telefono medico" << coma << "especialidad medico" << coma << "obra social" << endl;
+        for (int i = 0; i < tam_paciente; i++)
+        {
+            //hay que ver que el medico sea el de la ultima consulta
+            int pos; //= buscar_medico(, lista_m,tam_m);//le paso la lista de medicos
+            string telefono = buscartelefono(lista[i].DNI,lista_contacto ,  tam_contacto);
+            if (pos != -1 && telefono!="-1")
+            {
+                archivo << lista[i].DNI << coma << lista[i].Nombre << coma << lista[i].Apellido << coma << telefono << coma << lista_m[pos].Matricula << coma << lista_m[pos].Apellido << coma << lista_m[pos].Telefono << coma << lista_m[pos].especialidad << coma << lista[i].Obra_soc<<endl;
+            }
+           
+        }
+        
+        
+       
 
 }
 bool archivar_paciente(Paciente aux) {
@@ -771,4 +795,21 @@ Consulta consulta_reciente(Consulta* lista, int tam) {
         }
     }
     return lista[pos];
+}
+string buscartelefono(string dni, Contactos* lista, int tam)
+{
+    if (lista == NULL)
+    {
+        return "-1";
+    }
+    for (int i = 0; i < tam; i++)
+    {
+        if (lista[i].DNI_paciente == dni)
+        {
+            return lista[i].Telefono;//devuelvo el telefono del paciente
+        }
+
+    }
+    //si sale del for es porque no hay contacto con ese dni
+    return "-1";
 }
