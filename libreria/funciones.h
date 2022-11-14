@@ -51,6 +51,24 @@ typedef struct Paciente {
 	string Estado; //son 3:n/c,fallecio, internado
 	string Obra_soc;
 };
+
+// estructura secretaria con nuevos de pacientes 
+typedef struct Secretaria {
+	string DNI;
+	string Nombre;
+	string Apellido;
+	string Obra_soc;
+	tm Fecha_turno;
+	string Telefono;
+	string Matricula_medica;
+	string Telofono_medico;
+	string apellido_medico;
+	string especialidad_medico;
+};
+
+
+
+
 /// <summary>
 /// funciones de archivos
 /// </summary>
@@ -105,3 +123,6 @@ bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n
 Consulta consulta_reciente(Consulta* lista, int tam);
 bool archivar_paciente(Paciente aux);
 bool archivo_secretaria(Paciente* lista, int tam_paciente,Consulta* lista_c,int tam_c,Medicos* lista_m,int tam_m,Contactos* lista_contacto, int tam_contacto);
+bool pasar_archivo_secretaria(string archivo_secretaria, Consulta*& lista_c, int * tam_consulta );
+bool reprogramar();
+bool escribir_consulta(string archivo, Consulta*& lista, int* tam);

@@ -819,3 +819,91 @@ string buscartelefono(string dni, Contactos* lista, int tam)
     //si sale del for es porque no hay contacto con ese dni
     return "-1";
 }
+bool pasar_archivo_secretaria(string archivo_secretaria, Consulta*& lista_c, int* tam_consulta) {
+
+    fstream archivo_secre;
+
+    archivo_secre.open (archivo_secretaria, ios::in);
+
+    if (!(archivo_secre.is_open())) {
+        return false;
+    }
+
+    string header;
+    char coma;
+    Secretaria aux;
+    char barra;
+    getline(archivo_secre, header);
+    bool reprogra;
+    Consulta aux1;
+    bool fecha_soli;
+
+
+    while (archivo_secre) {
+
+        archivo_secre >> aux.DNI >> coma >> aux.Nombre >> aux.Apellido >> coma >> aux.Telefono >> coma >> aux.Fecha_turno.tm_mon >> barra >> aux.Fecha_turno.tm_mday >> barra >> aux.Fecha_turno.tm_year >> coma >> aux.Matricula_medica >> coma >> aux.apellido_medico >> coma >> aux.Telofono_medico >> coma >> aux.especialidad_medico >> coma >> aux.Obra_soc;
+
+
+        reprogra = reprogramar();
+
+        if (reprogra = true) {
+
+            Rand_fecha(&aux1.Fecha_turno.tm_mday, &aux1.Fecha_turno.tm_mon, &aux1.Fecha_turno.tm_year);
+
+            Rand_fecha(&aux1.Fecha_solicitado.tm_mday, &aux1.Fecha_solicitado.tm_mon, &aux1.Fecha_solicitado.tm_year);
+
+            aux1.DNI = aux.DNI;
+            aux1.Presento = false;
+            aux1.Matricula_medica = aux.Matricula_medica; // relleno el aux1 
+
+
+            fecha_soli = chequeofechasolicitado(aux1.Fecha_solicitado, aux1.Fecha_turno);
+
+            if (fecha_soli == true) {
+
+                agregar_consulta(aux1, lista_c, tam_consulta);
+
+            }
+
+
+        }
+
+    }
+          archivo_secre.close();
+          return true;
+}
+
+bool reprogramar() {
+    int aux;
+    
+    srand(time(NULL));
+    aux = rand () % 2; // me devuelve entre 0 y 1
+    if (aux == 0) {
+        return true; // reprogramo 
+    }
+    else {
+        return false; // no reprogramo 
+    }
+}
+
+bool escribir_consulta(string archivo, Consulta*& lista, int* tam) {
+
+    fstream archivo_esc;
+
+    archivo_esc.open(archivo, ios::out);
+
+    if (!(archivo_esc.is_open())) {
+        return false;
+    }
+    char coma = ',';
+    char barra = '/';
+    archivo_esc << "dni_pac" << coma << "fecha_solicitado" << coma << "fecha_turno" << coma << "presento" << coma << "matricula_med" << endl;
+    for (int i = 0; i < *tam; i++) {
+
+        archivo_esc << lista[i].DNI << coma << lista[i].Fecha_solicitado.tm_mon << barra << lista[i].Fecha_solicitado.tm_mday << barra << lista[i].Fecha_solicitado.tm_year << coma << lista[i].Fecha_turno.tm_mon << barra << lista[i].Fecha_turno.tm_mday << barra << lista[i].Fecha_turno.tm_year << coma << lista[i].Presento << coma << lista[i].Matricula_medica << endl;
+            // por si las dudas cambiar orden de fechas como esta en el csv
+
+    }
+    archivo_esc.close();
+    return true;
+}
