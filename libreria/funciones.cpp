@@ -723,7 +723,9 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
 
 }
 bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, int tam_c, Medicos* lista_m, int tam_m, Contactos* lista_contacto, int tam_contacto) {
-    
+    Consulta* consulta_aux = new Consulta[0];
+    int tam_n = 0;
+    Consulta ultima_consulta;
     fstream archivo;
     archivo.open("secretaria.csv", ios::out | ios::app);
     if (!(archivo.is_open()))
@@ -731,23 +733,27 @@ bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, in
         return false;
     }
     char coma = ',';
+    char barra = '/';
+    int pos = 0;
     //escribo el header
-    archivo << "DNI" << "nombre" << coma << "apellido" << coma << "telefo de contacto" << coma << "matricula medico" << coma << "apellido medico" << coma << "telefono medico" << coma << "especialidad medico" << coma << "obra social" << endl;
+    archivo << "DNI" << "nombre" << coma << "apellido" << coma << "telefo de contacto" << coma << "fecha ultima consulta" << coma << "matricula medico" << coma << "apellido medico" << coma << "telefono medico" << coma << "especialidad medico" << coma << "obra social" << endl;
         for (int i = 0; i < tam_paciente; i++)
         {
+            buscar_consultas_pacientes(lista[i].DNI, lista_c, tam_c, &tam_n, consulta_aux);
+
+            ultima_consulta = consulta_reciente(consulta_aux, tam_n);// devuelve la ultima consulta del paciente[i]
             //hay que ver que el medico sea el de la ultima consulta
-            int pos; //= buscar_medico(, lista_m,tam_m);//le paso la lista de medicos
-            string telefono = buscartelefono(lista[i].DNI,lista_contacto ,  tam_contacto);
+            pos= buscar_medico(ultima_consulta.Matricula_medica, lista_m,tam_m);//le paso la lista de medicos
+            string telefono = buscartelefono(lista[i].DNI,lista_contacto , tam_contacto);
             if (pos != -1 && telefono!="-1")
             {
-                archivo << lista[i].DNI << coma << lista[i].Nombre << coma << lista[i].Apellido << coma << telefono << coma << lista_m[pos].Matricula << coma << lista_m[pos].Apellido << coma << lista_m[pos].Telefono << coma << lista_m[pos].especialidad << coma << lista[i].Obra_soc<<endl;
+                archivo << lista[i].DNI << coma << lista[i].Nombre << coma << lista[i].Apellido << coma << telefono << coma << ultima_consulta.Fecha_turno.tm_mon<<barra<<ultima_consulta.Fecha_turno.tm_mday<<barra<<ultima_consulta.Fecha_turno.tm_year<<coma<<lista_m[pos].Matricula << coma << lista_m[pos].Apellido << coma << lista_m[pos].Telefono << coma << lista_m[pos].especialidad << coma << lista[i].Obra_soc<<endl;
             }
            
         }
         
-        
-       
-
+        archivo.close();
+        return true;
 }
 bool archivar_paciente(Paciente aux) {
     fstream archivo;
@@ -783,7 +789,7 @@ bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n
     return true;
 
 }
-Consulta consulta_reciente(Consulta* lista, int tam) {
+Consulta consulta_reciente(Consulta* lista,int tam) {
     double fecha1, fecha2;
     int pos=0;
     fecha1 = lista[0].Fecha_turno.tm_year*10000+lista[0].Fecha_turno.tm_mon*100 + lista[0].Fecha_turno.tm_mday;
