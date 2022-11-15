@@ -907,3 +907,7 @@ bool escribir_consulta(string archivo, Consulta*& lista, int* tam) {
     archivo_esc.close();
     return true;
 }
+//bool chequeo_telefono(string tel);
+
+
+//bool chequeo_celular(string cel);
