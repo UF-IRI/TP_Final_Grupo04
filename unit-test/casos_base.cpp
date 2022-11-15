@@ -127,3 +127,31 @@ TEST(chequeo_direccion, direc_comun2)
 {
 	ASSERT_TRUE(chequeo_direccion("centro asturiano 1234"));
 }
+TEST(chequeo_celular, cel_simbolos)
+{
+	ASSERT_FALSE(chequeo_celular("2*$,55"));
+}
+TEST(chequeo_celular, cel_letras)
+{
+	ASSERT_FALSE(chequeo_celular("2abbbbc"));
+}
+TEST(chequeo_celular, cel_comun)
+{
+	ASSERT_TRUE(chequeo_celular("+57 722 907 7201"));
+}
+TEST(chequearfecha, fecha_negativa )
+{
+	ASSERT_FALSE(chequearfecha(-2, -6, -2020));
+}
+TEST(chequearfecha, fecha_larga)
+{
+	ASSERT_FALSE(chequearfecha(222, 500, 22020));
+}
+TEST(chequearfecha, fecha_mesmal)
+{
+	ASSERT_FALSE(chequearfecha(2, 16, 2020));
+}
+TEST(chequearfecha, fecha_comun)
+{
+	ASSERT_TRUE(chequearfecha(15, 11, 2022));
+}

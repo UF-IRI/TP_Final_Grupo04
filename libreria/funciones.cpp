@@ -78,14 +78,14 @@ bool chequeo_celular(string cel)
 
     int tam = cel.length();//devuelvo el tamanio del string
 
-    if (tam < 15 || tam>17) {
+    if (tam<15 || tam>17) {
 
         return false;
     }
-    else if (cel[0] != '+') { return false; }
+    if (cel[0] != '+') { return false; }
     for (int i = 1; i < tam; i++) {
 
-        if (cel[i] < '0' || cel[i] > '9' || cel[i] != ' ') {
+        if ((cel[i] < '0' || cel[i] > '9') && cel[i] != ' ') {
             return false;
         }
 
