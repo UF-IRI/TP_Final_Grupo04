@@ -155,3 +155,19 @@ TEST(chequearfecha, fecha_comun)
 {
 	ASSERT_TRUE(chequearfecha(15, 11, 2022));
 }
+TEST(chequeo_especialidades,especialidad_numero )
+{
+	ASSERT_FALSE(chequeo_especialidades("55555"));
+}
+TEST(chequeo_especialidades, especialidad_simbolos)
+{
+	ASSERT_FALSE(chequeo_especialidades("¿?-¨´"));
+}
+TEST(chequeo_especialidades, especialidad_mayuscula)
+{
+	ASSERT_TRUE(chequeo_especialidades("medico Clinico"));
+}
+TEST(chequeo_especialidades, especialidad_minuscula)
+{
+	ASSERT_TRUE(chequeo_especialidades("medico pediatra"));
+}
