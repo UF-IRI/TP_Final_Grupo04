@@ -126,3 +126,4 @@ bool archivo_secretaria(Paciente* lista, int tam_paciente,Consulta* lista_c,int 
 bool pasar_archivo_secretaria(string archivo_secretaria, Consulta*& lista_c, int * tam_consulta );
 bool reprogramar();
 bool escribir_consulta(string archivo, Consulta*& lista, int* tam);
+bool cambiar_os(string* obra_social);

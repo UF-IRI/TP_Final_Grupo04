@@ -98,15 +98,11 @@ bool chequeo_direccion(string direc)
     int tam = direc.length();
 
     for (int i = 0; i < tam; i++) {
-        if ((direc[i] >= 'a' && direc[i] <= 'z') || (direc[i] >= 'A' && direc[i] <= 'Z') || (direc[i] == ' ') || (direc[i] < '0' || direc[i] > '9')) {
-           
-        }
-        else {
+        if (direc[i]>' '&& direc[i]<'0') {
             return false;
-        }
-
-        return true;
+        } 
     }
+    return true;
 }
 bool chequeoNacimiento(tm fecha) {
     if (fecha.tm_year < 0 + fecha.tm_mon < 0 + fecha.tm_mday < 0)
@@ -139,14 +135,17 @@ bool chequeo_Mail(string mail)
     int cont_p = 0;
     int tam = mail.length();
     for (int i = 0; i < tam; i++) {
+        if (mail[i] >= ' ' && mail[i] < '0'&&mail[i]!= '.') {
+            return false;
+        }
         if (mail[i] == '@') {
             cont_arr++;
         }
-        else if (mail[i] == '.') { cont_p++; }
+        if (mail[i] == '.') { cont_p++; }
 
     }
 
-    if (cont_arr == 1 && cont_p > 1) { return true; }
+    if (cont_arr == 1 && cont_p >= 1) { return true; }
 
     return false;
 }
@@ -906,6 +905,21 @@ bool escribir_consulta(string archivo, Consulta*& lista, int* tam) {
     }
     archivo_esc.close();
     return true;
+}
+bool cambiar_os(string* obra_social) {
+    srand(time(NULL));
+    int aux=rand()%2;
+    Obra_Social* lista = new Obra_Social[0];
+    int tam = 0;
+    Leer_Obrasoc("IRI_ObraSocial.csv", lista, &tam);
+    if (aux==0) {
+        return true;
+    }
+    else {
+        aux = rand() % tam;
+        *obra_social = lista[aux].obra_soc;
+    }
+
 }
 //bool chequeo_telefono(string tel);
 
