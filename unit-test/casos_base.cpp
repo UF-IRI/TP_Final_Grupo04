@@ -375,3 +375,19 @@ TEST(agregar_paciente, agregar_paciente_incorrecto)
 	ASSERT_FALSE(agregar_paciente(aux, lista, &tam));
 	delete[] lista;
 }
+TEST(agregar_consulta, agregar_consulta_correcto)
+{
+	Consulta aux;
+	aux.DNI = "42819027";
+	aux.Fecha_solicitado.tm_mday = 25;
+	aux.Fecha_solicitado.tm_mon = 04;
+	aux.Fecha_solicitado.tm_year = 2022;
+	aux.Fecha_turno.tm_mday = 18;
+	aux.Fecha_turno.tm_mon = 12;
+	aux.Fecha_turno.tm_year = 2022;
+	Consulta* lista = new Consulta[0];
+	int tam = 1;
+
+	ASSERT_TRUE(agregar_consulta(aux, lista, &tam));
+	delete[] lista;
+}

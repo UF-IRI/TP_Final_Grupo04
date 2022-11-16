@@ -305,7 +305,7 @@ bool leer_pacientes(string nombredearchivo,Obra_Social* lista_os, Paciente*& Lis
     while (archivo)
     { //dni,nombre,apellido,sexo,natalicio,estado,id_os
         //para leer la fecha >>barra>>mes>>dia>>anio
-        archivo >> aux.DNI >> coma >> aux.Nombre >> coma >> aux.Apellido >> coma >> aux.Sexo >> coma >>mes>>barra>>dia>>barra>>anio>> coma >> aux.Estado >> coma >> aux.Obra_soc;
+        archivo >> aux.DNI >> coma >> aux.Nombre >> coma >> aux.Apellido >> coma >> aux.Sexo >> coma >>dia>>barra>>mes>>barra>>anio>> coma >> aux.Estado >> coma >> aux.Obra_soc;
         bool aux6 = chequearfecha(dia, mes, anio);
         if (aux6 == true)
         {//chequeo todos los atributos que tiene el paciente
@@ -496,7 +496,7 @@ bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam
     while (archivo)
     {
         //dni_pac,fecha_solicitado,fecha_turno,presento,matricula_med
-        archivo >> aux.DNI>>coma>>mes_s>>barra>>dia_s>>barra>>anio_s>>coma>>mes_t>>barra>>dia_t>>barra>>anio_t>>coma>>aux.Presento>>coma>>aux.Matricula_medica;
+        archivo >> aux.DNI>>coma>>dia_s>>barra>>mes_s>>barra>>anio_s>>coma>>dia_t>>barra>>mes_t>>barra>>anio_t>>coma>>aux.Presento>>coma>>aux.Matricula_medica;
         bool aux2 = chequearfecha(dia_s,mes_s, anio_s);
         bool aux3 = chequearfecha(dia_t,mes_t, anio_t);
         if (aux2==true && aux3==true) 
@@ -751,7 +751,7 @@ bool archivar_paciente(Paciente aux) {
         return false;
     }
     archivo << "DNI" << coma << "nombre" << coma << "apellido" << coma << "sexo" << coma << "natalicio" << coma << "estado" << coma << "id_os" << endl;
-    archivo << aux.DNI << coma << aux.Nombre << coma << aux.Apellido << coma << aux.Sexo << coma << aux.Nacimiento.tm_mon << barra << aux.Nacimiento.tm_wday << barra << aux.Nacimiento.tm_year << coma << aux.Estado << coma << aux.Obra_soc << endl;
+    archivo << aux.DNI << coma << aux.Nombre << coma << aux.Apellido << coma << aux.Sexo << coma << aux.Nacimiento.tm_mday << barra << aux.Nacimiento.tm_mon << barra << aux.Nacimiento.tm_year << coma << aux.Estado << coma << aux.Obra_soc << endl;
     archivo.close();
     return true;
 }
@@ -887,7 +887,7 @@ bool escribir_consulta(string archivo, Consulta*& lista, int* tam) {
     archivo_esc << "dni_pac" << coma << "fecha_solicitado" << coma << "fecha_turno" << coma << "presento" << coma << "matricula_med" << endl;
     for (int i = 0; i < *tam; i++) {
 
-        archivo_esc << lista[i].DNI << coma << lista[i].Fecha_solicitado.tm_mon << barra << lista[i].Fecha_solicitado.tm_mday << barra << lista[i].Fecha_solicitado.tm_year << coma << lista[i].Fecha_turno.tm_mon << barra << lista[i].Fecha_turno.tm_mday << barra << lista[i].Fecha_turno.tm_year << coma << lista[i].Presento << coma << lista[i].Matricula_medica << endl;
+        archivo_esc << lista[i].DNI << coma << lista[i].Fecha_solicitado.tm_mday << barra << lista[i].Fecha_solicitado.tm_mon << barra << lista[i].Fecha_solicitado.tm_year << coma << lista[i].Fecha_turno.tm_mday << barra << lista[i].Fecha_turno.tm_mon << barra << lista[i].Fecha_turno.tm_year << coma << lista[i].Presento << coma << lista[i].Matricula_medica << endl;
             // por si las dudas cambiar orden de fechas como esta en el csv
 
     }
