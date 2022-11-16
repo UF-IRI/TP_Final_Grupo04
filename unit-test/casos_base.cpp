@@ -337,7 +337,7 @@ TEST(chequeoObra_social, chequeoObra_social_MAYUSCULA)
 
 TEST(agregar_paciente, agregar_paciente_correcto)
 {
-	
+
 	Paciente aux;
 	aux.DNI = "412345597";
 	aux.Apellido = "pepito";
@@ -348,9 +348,9 @@ TEST(agregar_paciente, agregar_paciente_correcto)
 	aux.Nombre = "juan";
 	aux.Obra_soc = "OSDE";
 	aux.Sexo = 'M';
-	int tam = 0;
-	Paciente *lista = new Paciente [0];
-
+	int tam = 1;
+	Paciente* lista = new Paciente[0];
+	
 
 
 	ASSERT_TRUE(agregar_paciente(aux, lista ,&tam));
@@ -369,10 +369,8 @@ TEST(agregar_paciente, agregar_paciente_incorrecto)
 	aux.Nombre = "juan";
 	aux.Obra_soc = "pami";
 	aux.Sexo = 'j';
-	int tam = 0;
+	int tam = 1;
 	Paciente* lista = new Paciente[0];
-
-
 
 	ASSERT_FALSE(agregar_paciente(aux, lista, &tam));
 	delete[] lista;

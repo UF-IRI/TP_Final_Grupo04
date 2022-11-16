@@ -105,11 +105,11 @@ bool chequeo_direccion(string direc)
     return true;
 }
 bool chequeoNacimiento(tm fecha) {
-    if (fecha.tm_year < 0 + fecha.tm_mon < 0 + fecha.tm_mday < 0)
+    if (fecha.tm_year < 0 || fecha.tm_mon < 0 || fecha.tm_mday < 0)
         return false;
     
-    time_t now;
-    struct tm* fecha_actual = localtime(&now);
+    time_t now=time(0);
+    tm* fecha_actual = localtime(&now);
 
     if (fecha_actual == nullptr) {
         return false;
@@ -123,7 +123,7 @@ bool chequeoNacimiento(tm fecha) {
     double nacimiento = fecha.tm_year * 10000 + fecha.tm_mon * 100 + fecha.tm_mday;
     if (nacimiento < fecha_hoy)
         return true;
-
+    else return false;
     /*if (fecha.tm_year == anio_ac && fecha.tm_mon == mes_ac) {
         if (fecha.tm_mday < dia_ac)
             return true;
@@ -162,7 +162,7 @@ bool chequeargenero(char letra)
     }
 
 }
- bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
+bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
 
      for (int i = 0; i < tam; i++) {
 
@@ -388,7 +388,7 @@ bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar)
     }
     for (int i=0;i<(*tam);i++)
     {
-        listaaux[i]=lista[i];//me voy pasando el contenido
+        *(listaaux+i)=lista[i];//me voy pasando el contenido
     }
     (*tam)= (*tam) +cant_aumentar;
     delete []lista;
@@ -548,7 +548,7 @@ bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
 bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
 {
    
-    if (fecha_solicitado.tm_year < 0 && fecha_solicitado.tm_mon * 100 < 0 && fecha_solicitado.tm_mday < 0 && fecha_turno.tm_year < 0 && fecha_turno.tm_mon < 0 && fecha_turno.tm_mday <0)
+    if (fecha_solicitado.tm_year < 0 || fecha_solicitado.tm_mon < 0 ||fecha_solicitado.tm_mday < 0 ||fecha_turno.tm_year < 0 || fecha_turno.tm_mon < 0 || fecha_turno.tm_mday <0)
         return false;
     
     double fecha1 = fecha_solicitado.tm_year * 10000 + fecha_solicitado.tm_mon * 100 + fecha_solicitado.tm_mday;
