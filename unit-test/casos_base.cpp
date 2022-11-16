@@ -248,9 +248,9 @@ TEST(chequeofechasolicitado, fecha_solicitado_menor_a_fecha_turno)
 	fecha_s.tm_mday = 8;
 
 	tm fecha_t; //fecha turno
-	fecha_s.tm_year = 2019;
-	fecha_s.tm_mon = 11;
-	fecha_s.tm_mday = 9;
+	fecha_t.tm_year = 2019;
+	fecha_t.tm_mon = 11;
+	fecha_t.tm_mday = 9;
 
 
 	ASSERT_TRUE(chequeofechasolicitado(fecha_s, fecha_t));
@@ -264,9 +264,9 @@ TEST(chequeofechasolicitado, fecha_solicitado_negativo_a_fecha_turno)
 	fecha_s.tm_mday = 8;
 
 	tm fecha_t; //fecha turno
-	fecha_s.tm_year = 2017;
-	fecha_s.tm_mon = 11;
-	fecha_s.tm_mday = 9;
+	fecha_t.tm_year = 2017;
+	fecha_t.tm_mon = 11;
+	fecha_t.tm_mday = 9;
 
 
 	ASSERT_FALSE(chequeofechasolicitado(fecha_s, fecha_t));
@@ -280,9 +280,9 @@ TEST(chequeofechasolicitado, fecha_solicitado_igual_a_fecha_turno)
 	fecha_s.tm_mday = 8;
 
 	tm fecha_t; //fecha turno
-	fecha_s.tm_year = 2020;
-	fecha_s.tm_mon = 11;
-	fecha_s.tm_mday = 8;
+	fecha_t.tm_year = 2020;
+	fecha_t.tm_mon = 11;
+	fecha_t.tm_mday = 8;
 
 
 	ASSERT_FALSE(chequeofechasolicitado(fecha_s, fecha_t)); // chequear si las fechas al ser iguales tiene que dar verdadero o falso
