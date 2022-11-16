@@ -548,8 +548,6 @@ bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
 bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
 {
    
-   // double dif = difftime(fecha_turno,fecha_solicitado);
-   //no se puede usar difftime porque recive time_t no tm
     if (fecha_solicitado.tm_year < 0 && fecha_solicitado.tm_mon * 100 < 0 && fecha_solicitado.tm_mday < 0 && fecha_turno.tm_year < 0 && fecha_turno.tm_mon < 0 && fecha_turno.tm_mday <0)
         return false;
     
@@ -559,21 +557,6 @@ bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
     if (fecha1 < fecha2)
         return true;
     else return false;
-    //if (fecha_solicitado.tm_year == fecha_turno.tm_year) {
-    //    if (fecha_solicitado.tm_mon == fecha_turno.tm_mon) {
-    //        if (fecha_solicitado.tm_mday < fecha_turno.tm_mday)
-    //            return true;
-    //        else return false;
-    //    }
-    //    else if (fecha_solicitado.tm_mon < fecha_turno.tm_mon)
-    //        return true;
-    //    else return false;
-
-    //}
-    //else if (fecha_solicitado.tm_year < fecha_turno.tm_year) { // si el anio del tueno es mayor al de solicitado
-    //    return true;
-    //}
-    //else return false; // el anio del turno es menor al solicitado
 
 
     

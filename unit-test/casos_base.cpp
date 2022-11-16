@@ -231,13 +231,13 @@ TEST(chequeofechasolicitado, fecha_solicitado_mayor_a_fecha_turno)
 	fecha_s.tm_mday = 8;
 
 	tm fecha_t; //fecha turno
-	fecha_s.tm_year = 2018;
-	fecha_s.tm_mon = 11;
-	fecha_s.tm_mday = 9;
+	fecha_t.tm_year = 2018;
+	fecha_t.tm_mon = 11;
+	fecha_t.tm_mday = 9;
 
 
 	ASSERT_FALSE(chequeofechasolicitado(fecha_s, fecha_t)); 
-	// sofia salio esto "Run-Time Check Failure #3 - The variable 'fecha_t' is being used without being initialized" que es ?
+	
 }
 TEST(chequeofechasolicitado, fecha_solicitado_menor_a_fecha_turno)
 {
