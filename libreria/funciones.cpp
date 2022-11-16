@@ -110,6 +110,11 @@ bool chequeoNacimiento(tm fecha) {
     
     time_t now;
     struct tm* fecha_actual = localtime(&now);
+
+    if (fecha_actual == nullptr) {
+        return false;
+    }
+
     int dia_ac = fecha_actual->tm_mday;
     int mes_ac = fecha_actual->tm_mon + 1;//devuelve entre 0-11
     int anio_ac = fecha_actual->tm_year + 1900;
@@ -180,13 +185,13 @@ bool chequeargenero(char letra)
              
          }
          else {
-             return true;
+             return false;
          }
 
-         return false;
+         
      }
      
-     
+       return true;
 
 
  }

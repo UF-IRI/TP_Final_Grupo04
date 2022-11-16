@@ -171,3 +171,209 @@ TEST(chequeo_especialidades, especialidad_minuscula)
 {
 	ASSERT_TRUE(chequeo_especialidades("medico pediatra"));
 }
+  // bool chequeoNacimiento(tm fecha) 
+TEST(chequeoNacimiento, fecha_negativa)
+{
+	tm fecha; // creamos un estructura fecha
+	fecha.tm_year = 2020;
+	fecha.tm_mon = 7;
+	fecha.tm_mday = -8;
+
+	ASSERT_FALSE(chequeoNacimiento(fecha));
+}
+TEST(chequeoNacimiento, fecha_comun) // ver error, unit test no dio bien 
+{
+	tm fecha; // creamos un estructura fecha
+	fecha.tm_year = 2020;
+	fecha.tm_mon = 7;
+	fecha.tm_mday = 10;
+
+	ASSERT_TRUE(chequeoNacimiento(fecha));
+}
+TEST(chequeoNacimiento, fecha_mayor_actual) // fecha mayor a la actual	
+{
+	tm fecha; // creamos un estructura fecha
+	fecha.tm_year = 2027;
+	fecha.tm_mon = 11;
+	fecha.tm_mday = 9;
+
+	ASSERT_FALSE(chequeoNacimiento(fecha));
+}
+ //bool chequeo_estado(string estado);
+
+TEST(chequeo_estado, estado_incorrecto ) 
+{
+	
+	ASSERT_FALSE(chequeo_estado("de_alta"));
+}
+TEST(chequeo_estado, estado_con_simbolo)
+{
+
+	ASSERT_FALSE(chequeo_estado("@ "));
+}
+TEST(chequeo_estado, estado_CORRECTO)
+{
+
+	ASSERT_TRUE(chequeo_estado("fallecido"));
+}
+TEST(chequeo_estado, estado_MAYUSCULA)
+{
+
+	ASSERT_FALSE(chequeo_estado("FALLECIDO"));
+}
+ //bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno);
+TEST(chequeofechasolicitado, fecha_solicitado_mayor_a_fecha_turno)
+{
+
+	tm fecha_s; // fecha solicitado
+	fecha_s.tm_year = 2020;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 8;
+
+	tm fecha_t; //fecha turno
+	fecha_s.tm_year = 2018;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 9;
+
+
+	ASSERT_FALSE(chequeofechasolicitado(fecha_s, fecha_t)); 
+	// sofia salio esto "Run-Time Check Failure #3 - The variable 'fecha_t' is being used without being initialized" que es ?
+}
+TEST(chequeofechasolicitado, fecha_solicitado_menor_a_fecha_turno)
+{
+
+	tm fecha_s; // fecha solicitado
+	fecha_s.tm_year = 2010;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 8;
+
+	tm fecha_t; //fecha turno
+	fecha_s.tm_year = 2019;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 9;
+
+
+	ASSERT_TRUE(chequeofechasolicitado(fecha_s, fecha_t));
+}
+TEST(chequeofechasolicitado, fecha_solicitado_negativo_a_fecha_turno)
+{
+
+	tm fecha_s; // fecha solicitado
+	fecha_s.tm_year = -2020;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 8;
+
+	tm fecha_t; //fecha turno
+	fecha_s.tm_year = 2017;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 9;
+
+
+	ASSERT_FALSE(chequeofechasolicitado(fecha_s, fecha_t));
+}
+TEST(chequeofechasolicitado, fecha_solicitado_igual_a_fecha_turno)
+{
+
+	tm fecha_s; // fecha solicitado
+	fecha_s.tm_year = 2020;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 8;
+
+	tm fecha_t; //fecha turno
+	fecha_s.tm_year = 2020;
+	fecha_s.tm_mon = 11;
+	fecha_s.tm_mday = 8;
+
+
+	ASSERT_FALSE(chequeofechasolicitado(fecha_s, fecha_t)); // chequear si las fechas al ser iguales tiene que dar verdadero o falso
+}
+ // bool chequeoObra_social(string Obra_soc, Obra_Social* listaObra_soc, int tam)
+
+
+TEST(chequeoObra_social, chequeoObra_social_incorrecta)
+{
+	int tam = 6;
+	Obra_Social* chequeo = new Obra_Social[tam];
+	chequeo[0].obra_soc = "Medicus";
+	chequeo[1].obra_soc = " OSDE";
+	chequeo[2].obra_soc = "IOSFA";
+	chequeo[3].obra_soc = "Italiano";
+	chequeo[4].obra_soc = "Aleman";
+	chequeo[5].obra_soc = "Espanyol";
+
+	ASSERT_FALSE(chequeoObra_social("pami",chequeo,tam)); 
+	delete[] chequeo;
+}
+TEST(chequeoObra_social, chequeoObra_social_correcta)
+{
+	int tam = 6;
+	Obra_Social* chequeo = new Obra_Social[tam];
+	chequeo[0].obra_soc = "Medicus";
+	chequeo[1].obra_soc = " OSDE";
+	chequeo[2].obra_soc = "IOSFA";
+	chequeo[3].obra_soc = "Italiano";
+	chequeo[4].obra_soc = "Aleman";
+	chequeo[5].obra_soc = "Espanyol";
+
+	ASSERT_TRUE(chequeoObra_social("Medicus", chequeo, tam));
+	delete[] chequeo;
+}
+
+TEST(chequeoObra_social, chequeoObra_social_MAYUSCULA)
+{
+	int tam = 6;
+	Obra_Social* chequeo = new Obra_Social[tam];
+	chequeo[0].obra_soc = "Medicus";
+	chequeo[1].obra_soc = " OSDE";
+	chequeo[2].obra_soc = "IOSFA";
+	chequeo[3].obra_soc = "Italiano";
+	chequeo[4].obra_soc = "Aleman";
+	chequeo[5].obra_soc = "Espanyol";
+
+	ASSERT_FALSE(chequeoObra_social("MEDICUS", chequeo, tam));
+	delete[] chequeo;
+}
+//bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam);
+
+TEST(agregar_paciente, agregar_paciente_correcto)
+{
+	
+	Paciente aux;
+	aux.DNI = "412345597";
+	aux.Apellido = "pepito";
+	aux.Estado = "fallecido";
+	aux.Nacimiento.tm_year = 1998;
+	aux.Nacimiento.tm_mon = 11;
+	aux.Nacimiento.tm_mday = 8;
+	aux.Nombre = "juan";
+	aux.Obra_soc = "OSDE";
+	aux.Sexo = 'M';
+	int tam = 0;
+	Paciente *lista = new Paciente [0];
+
+
+
+	ASSERT_TRUE(agregar_paciente(aux, lista ,&tam));
+	delete[] lista;
+}
+TEST(agregar_paciente, agregar_paciente_incorrecto)
+{
+
+	Paciente aux;
+	aux.DNI = "41235597";
+	aux.Apellido = "pepito";
+	aux.Estado = "civil";
+	aux.Nacimiento.tm_year = 1998;
+	aux.Nacimiento.tm_mon = 11;
+	aux.Nacimiento.tm_mday = 8;
+	aux.Nombre = "juan";
+	aux.Obra_soc = "pami";
+	aux.Sexo = 'j';
+	int tam = 0;
+	Paciente* lista = new Paciente[0];
+
+
+
+	ASSERT_FALSE(agregar_paciente(aux, lista, &tam));
+	delete[] lista;
+}
