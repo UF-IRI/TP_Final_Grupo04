@@ -86,7 +86,7 @@ bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
 /// <returns></returns>
 bool chequear_DNI(string dni);
 bool chequeo_AyN(string AyN); // esta funcion chequea nombre y apellidos de pacientes
-bool chequeo_telefono(string tel);
+//bool chequeo_telefono(string tel);
 bool chequeo_celular(string cel);
 bool chequeo_matricula(string matricula);
 bool chequeo_direccion(string direc);

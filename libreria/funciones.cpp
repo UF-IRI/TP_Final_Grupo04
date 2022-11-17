@@ -37,6 +37,7 @@ bool chequeo_AyN(string AyN) {
     return true;
 
 }
+/*
 bool chequeo_telefono(string tel) {
 
     int tam = tel.length();//devuelvo el tamanio del string
@@ -55,6 +56,7 @@ bool chequeo_telefono(string tel) {
 
     return true;
 }
+*/
 bool chequeo_matricula(string matricula) 
 {
     int tam = matricula.length();//devuelvo el tamanio del string
@@ -584,7 +586,7 @@ bool leer_medicos(string nombre_archivos, Medicos*& lista, int* tam) {
         bool aux1 = chequeo_matricula(aux.Matricula);
         bool aux2 = chequeo_AyN(aux.Nombre);
         bool aux3 = chequeo_AyN(aux.Apellido);
-        bool aux4 = chequeo_telefono(aux.Telefono);
+        bool aux4 = chequeo_celular(aux.Telefono);
         bool aux5 = chequeo_especialidades(aux.especialidad);
         if (aux1 == true && aux2 == true && aux3 == true && aux4 == true && aux5 == true) {
 
