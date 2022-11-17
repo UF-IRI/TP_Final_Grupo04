@@ -339,7 +339,7 @@ bool leer_pacientes(string nombredearchivo,Obra_Social* lista_os, Paciente*& Lis
 
 bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
 
-    if (lista == NULL) {
+    if (lista == nullptr) {
         return false;
     }
     if (*tam != 0)
@@ -384,7 +384,7 @@ bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar)
 {
     Paciente* listaaux = new Paciente[(*tam)+ cant_aumentar];
     //chequeo si se logro pedir memoria adecuadamente
-    if (listaaux == NULL || lista == NULL)
+    if (listaaux == nullptr || lista == nullptr)
     {
         return false;//error
     }

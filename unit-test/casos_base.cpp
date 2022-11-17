@@ -642,7 +642,7 @@ TEST(agregar_medico, agregar_medico_incorrecto)
 	ASSERT_FALSE(agregar_medico(aux, lista,&tam));	
 	delete[]lista;
 }
-TEST(agregar_medico, agregar_medico_incorrecto)
+TEST(agregar_medico, agregar_medico_correcto)
 {
 	Medicos aux;
 	Medicos* lista = new Medicos[0];
