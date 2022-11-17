@@ -13,6 +13,77 @@ namespace Casos_Base::tests {
 		ASSERT_THAT(1, 1);
 	}
 }
+//bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar);
+TEST(redimensionarp, redimensionarp_CORRECTO)
+{
+	Paciente* lista = new Paciente[1];
+	int tam = 1;
+	int cant_aumentar = 1;
+
+
+	ASSERT_TRUE(redimensionarp(lista,&tam,cant_aumentar));
+	delete[] lista;
+}
+TEST(redimensionarp, redimensionarp_INCORRECTO)
+{
+	Paciente* lista = new Paciente[1];
+	lista = NULL;
+	int tam = 1;
+	int cant_aumentar = 1;
+
+
+	ASSERT_FALSE(redimensionarp(lista, &tam, cant_aumentar));
+	delete[] lista;
+}
+
+//bool redimensionar_medicos(Medicos*& lista, int cantidad_aumentar, int* tam);
+//bool Redimensionar_Consultas(Consulta*& list, int tam);
+
+
+TEST(redimensionar_medicos, redimensionar_medicos_CORRECTO)
+{
+	Medicos* lista = new Medicos[1];
+	int tam = 1;
+	int cant_aumentar = 1;
+
+
+	ASSERT_TRUE(redimensionar_medicos(lista,cant_aumentar, &tam));
+	delete[] lista;
+}
+TEST(redimensionar_medicos, redimensionar_medicos_INCORRECTO)
+{
+	Medicos* lista = new Medicos[1];
+	lista = NULL;
+	int tam = 1;
+	int cant_aumentar = 1;
+
+
+	ASSERT_FALSE(redimensionar_medicos(lista,cant_aumentar, &tam));
+	delete[] lista;
+}
+TEST(Redimensionar_Consultas, Redimensionar_Consultas_CORRECTO)
+{
+	Consulta* lista = new Consulta[1];
+	int tam = 1;
+	
+
+
+	ASSERT_TRUE(Redimensionar_Consultas(lista, tam));
+	delete[] lista;
+}
+TEST(Redimensionar_Consultas, Redimensionar_Consultas_INCORRECTO)
+{
+	Consulta* lista = new Consulta[1];
+	lista = NULL;
+	int tam = 1;
+	
+
+
+	ASSERT_FALSE(Redimensionar_Consultas(lista, tam));
+	delete[] lista;
+}
+
+
 //chequeo dni
 TEST(chequear_DNI,DNI_letras)
 {
@@ -349,8 +420,8 @@ TEST(agregar_paciente, agregar_paciente_correcto)
 	aux.Obra_soc = "OSDE";
 	aux.Sexo = 'M';
 	int tam = 1;
-	Paciente* lista = new Paciente[0];
-	
+
+	Paciente* lista = new Paciente[1];
 
 
 	ASSERT_TRUE(agregar_paciente(aux, lista ,&tam));
@@ -370,8 +441,8 @@ TEST(agregar_paciente, agregar_paciente_incorrecto)
 	aux.Obra_soc = "pami";
 	aux.Sexo = 'j';
 	int tam = 1;
-	Paciente* lista = new Paciente[0];
-
+	Paciente* lista = new Paciente[1];
+	
 	ASSERT_FALSE(agregar_paciente(aux, lista, &tam));
 	delete[] lista;
 }
@@ -385,9 +456,386 @@ TEST(agregar_consulta, agregar_consulta_correcto)
 	aux.Fecha_turno.tm_mday = 18;
 	aux.Fecha_turno.tm_mon = 12;
 	aux.Fecha_turno.tm_year = 2022;
-	Consulta* lista = new Consulta[0];
+	Consulta* lista = new Consulta[1];
 	int tam = 1;
 
 	ASSERT_TRUE(agregar_consulta(aux, lista, &tam));
 	delete[] lista;
+}
+//int buscarpaciente(string dni, Paciente* lista, int tam);
+
+TEST(buscarpaciente, BUSCARPACIENTE_correcto)
+{
+	Paciente aux1;
+	Paciente aux2;
+	Paciente aux3;
+	aux1.DNI = "40235559";
+	aux1.Apellido = "pepito";
+	aux1.Estado = "civil";
+	aux1.Nacimiento.tm_year = 1997;
+	aux1.Nacimiento.tm_mon = 11;
+	aux1.Nacimiento.tm_mday = 8;
+	aux1.Nombre = "carlos";
+	aux1.Obra_soc = "OSDE";
+	aux1.Sexo = 'M';
+
+	aux2.DNI = "44235597";
+	aux2.Apellido = "alberto";
+	aux2.Estado = "civil";
+	aux2.Nacimiento.tm_year = 1948;
+	aux2.Nacimiento.tm_mon = 11;
+	aux2.Nacimiento.tm_mday = 8;
+	aux2.Nombre = "fernanadfes";
+	aux2.Obra_soc = "Aleman";
+	aux2.Sexo = 'M';
+
+	aux3.DNI = "41235957";
+	aux3.Apellido = "pepita";
+	aux3.Estado = "civil";
+	aux3.Nacimiento.tm_year = 1968;
+	aux3.Nacimiento.tm_mon = 12;
+	aux3.Nacimiento.tm_mday = 8;
+	aux3.Nombre = "perez";
+	aux3.Obra_soc = "Aleman";
+	aux3.Sexo = 'M';
+	int tam = 3;
+	Paciente* lista = new Paciente[3];
+	lista[0] = aux1;
+	lista[1] = aux2;
+	lista[2] = aux3;
+
+	ASSERT_THAT(buscarpaciente("41235957", lista, tam), 2);
+	delete[] lista;
+}
+TEST(buscarpaciente, BUSCARPACIENTE_incorrecto)
+{
+	Paciente aux1;
+	Paciente aux2;
+	Paciente aux3;
+	aux1.DNI = "40235559";
+	aux1.Apellido = "pepito";
+	aux1.Estado = "civil";
+	aux1.Nacimiento.tm_year = 1997;
+	aux1.Nacimiento.tm_mon = 11;
+	aux1.Nacimiento.tm_mday = 8;
+	aux1.Nombre = "carlos";
+	aux1.Obra_soc = "OSDE";
+	aux1.Sexo = 'M';
+
+	aux2.DNI = "44235597";
+	aux2.Apellido = "alberto";
+	aux2.Estado = "civil";
+	aux2.Nacimiento.tm_year = 1948;
+	aux2.Nacimiento.tm_mon = 11;
+	aux2.Nacimiento.tm_mday = 8;
+	aux2.Nombre = "fernanadfes";
+	aux2.Obra_soc = "Aleman";
+	aux2.Sexo = 'M';
+
+	aux3.DNI = "41235957";
+	aux3.Apellido = "pepita";
+	aux3.Estado = "civil";
+	aux3.Nacimiento.tm_year = 1968;
+	aux3.Nacimiento.tm_mon = 12;
+	aux3.Nacimiento.tm_mday = 8;
+	aux3.Nombre = "perez";
+	aux3.Obra_soc = "Aleman";
+	aux3.Sexo = 'M';
+	int tam = 3;
+	Paciente* lista = new Paciente[3];
+	lista[0] = aux1;
+	lista[1] = aux2;
+	lista[2] = aux3;
+
+	ASSERT_FALSE(buscarpaciente("40502265", lista, tam),-1);
+	delete[] lista;
+}
+
+//bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato);
+TEST(Agregar_obrasoc, Agregar_obrasoc_correcto)
+{
+
+	Obra_Social aux;
+	aux.id = 8;
+	aux.obra_soc = "pami";
+	int tam = 0;
+	Obra_Social* lista = new Obra_Social[0];
+
+
+	ASSERT_TRUE(Agregar_obrasoc(lista, &tam, aux));
+	delete[] lista;
+}
+TEST(Agregar_obrasoc, Agregar_obrasoc_incorrecto)
+{
+
+	Obra_Social aux;
+	aux.id = 8;
+	aux.obra_soc = "pami";
+	int tam = 0;
+	Obra_Social* lista = new Obra_Social[0];
+	lista = NULL;
+
+
+	ASSERT_FALSE(Agregar_obrasoc(lista, &tam, aux));
+	delete[] lista;
+}
+//string buscartelefono(string dni, Contactos* lista, int tam);
+TEST(buscartelefono, buscartelefono_correcto)
+{
+
+	Contactos aux1;
+	Contactos aux2;
+	Contactos* lista = new Contactos[2];
+	aux1.Celular = "+41 203 339 0504";
+	aux1.Direccion ="callefalse 123";
+	aux1.DNI_paciente= "67597385";
+	aux1.Mail ="pepito@hotmail.com";
+	aux1.Telefono = "+57 722 907 7201";
+	aux2.Celular = "+40 203 339 0504";
+	aux2.Direccion = "callefalse 123";
+	aux2.DNI_paciente = "69597385";
+	aux2.Mail = "pepito@hotmail.com";
+	aux2.Telefono = "+57 725 906 7201";
+	lista[0] = aux1;
+	lista[1] = aux2;
+	int tam = 2;
+
+	ASSERT_EQ(buscartelefono(aux1.DNI_paciente, lista, tam),"+57 722 907 7201");
+	delete[] lista;
+}
+TEST(buscartelefono, buscartelefono_incorrecto)
+{
+
+	Contactos aux1;
+	Contactos aux2;
+	Contactos* lista = new Contactos[2];
+	aux1.Celular = "+41 203 339 0504";
+	aux1.Direccion = "callefalse 123";
+	aux1.DNI_paciente = "67597385";
+	aux1.Mail = "pepito@hotmail.com";
+	aux1.Telefono = "+57 722 907 7201";
+	aux2.Celular = "+40 203 339 0504";
+	aux2.Direccion = "callefalse 123";
+	aux2.DNI_paciente = "69597385";
+	aux2.Mail = "pepito@hotmail.com";
+	aux2.Telefono = "+57 725 906 7201";
+	lista[0] = aux1;
+	lista[1] = aux2;
+	int tam = 2;
+
+	ASSERT_NE(buscartelefono(aux1.DNI_paciente, lista, tam), "+58 721 907 7201");
+	delete[] lista;
+}
+// bool agregar_medico(Medicos aux, Medicos*& lista, int* tam);
+TEST(agregar_medico, agregar_medico_incorrecto)
+{
+	Medicos aux;
+	Medicos* lista = new Medicos[0];
+	int tam = 0;
+	aux.activo = true;
+	aux.Apellido= "Grafom";
+	aux.especialidad = "farmacologia clinica";
+	aux.Matricula = "04 - 723 - 0907";
+	aux.Nombre= " Araldo";
+	aux.Telefono = "58 721 907 7201"; // porque le galta el +
+
+	ASSERT_FALSE(agregar_medico(aux, lista,&tam));	
+	delete[]lista;
+}
+TEST(agregar_medico, agregar_medico_incorrecto)
+{
+	Medicos aux;
+	Medicos* lista = new Medicos[0];
+	int tam = 0;
+	aux.activo = true;
+	aux.Apellido = "Grafom";
+	aux.especialidad = "farmacologia clinica";
+	aux.Matricula = "04 - 723 - 0907";
+	aux.Nombre = " Araldo";
+	aux.Telefono = "+58 721 907 7201";
+
+	ASSERT_TRUE(agregar_medico(aux, lista, &tam));
+	delete []lista;
+}
+//int buscar_medico(string matricula, Medicos* lista, int tam);
+
+TEST(buscar_medico, buscar_medico_incorrecto)
+{
+	Medicos aux;
+	Medicos* lista = new Medicos[1];
+	int tam = 1;
+	aux.activo = true;
+	aux.Apellido = "Grafom";
+	aux.especialidad = "farmacologia clinica";
+	aux.Matricula = "04 - 723 - 0907";
+	aux.Nombre = " Araldo";
+	aux.Telefono = "+58 721 907 7201";
+	lista[0] = aux;
+
+	ASSERT_FALSE(buscar_medico("03 - 723 - 0907", lista, tam),-1);
+	delete[]lista;
+}
+TEST(buscar_medico, buscar_medico_correcto)
+{
+	Medicos aux;
+	Medicos* lista = new Medicos[1];
+	int tam = 1;
+	aux.activo = true;
+	aux.Apellido = "Grafom";
+	aux.especialidad = "farmacologia clinica";
+	aux.Matricula = "04 - 723 - 0907";
+	aux.Nombre = " Araldo";
+	aux.Telefono = "+58 721 907 7201";
+	lista[0] = aux;
+
+	ASSERT_THAT(buscar_medico(aux.Matricula, lista, tam),0);
+	delete[]lista;
+}
+//Consulta consulta_reciente(Consulta* lista, int tam);
+
+TEST(consulta_reciente, consulta_reciente_correcto)
+{
+	Consulta aux1;
+	Consulta aux2;
+	Consulta* lista = new Consulta[2];
+	int tam = 2;
+	aux1.DNI = "86758484";
+	aux1.Fecha_solicitado.tm_mday = 01;
+	aux1.Fecha_solicitado.tm_mon = 11;
+	aux1.Fecha_solicitado.tm_year = 2001;
+	aux1.Fecha_turno.tm_mday  = 19;
+	aux1.Fecha_turno.tm_mon = 12;
+	aux1.Fecha_turno.tm_year = 2001;
+	aux1.Matricula_medica = "00 - 334 - 0838";
+	aux1.Presento = true;
+
+	aux2.DNI = "86758484";
+	aux2.Fecha_solicitado.tm_mday = 02;
+	aux2.Fecha_solicitado.tm_mon = 11;
+	aux2.Fecha_solicitado.tm_year = 2001;
+	aux2.Fecha_turno.tm_mday = 18;
+	aux2.Fecha_turno.tm_mon = 8;
+	aux2.Fecha_turno.tm_year = 2002;
+	aux2.Matricula_medica = "00 - 334 - 0838";
+	aux2.Presento = true;
+	Consulta n = consulta_reciente(lista, tam);
+	ASSERT_THAT(n.Fecha_turno.tm_mday, aux2.Fecha_turno.tm_mday);
+	ASSERT_THAT(n.Fecha_turno.tm_mon, aux2.Fecha_turno.tm_mon);
+	ASSERT_THAT(n.Fecha_turno.tm_year, aux2.Fecha_turno.tm_year);
+	
+	delete[]lista;
+}
+TEST(consulta_reciente, consulta_reciente_incorrecto)
+{
+	Consulta aux1;
+	Consulta aux2;
+	Consulta* lista = new Consulta[2];
+	int tam = 2;
+	aux1.DNI = "86758484";
+	aux1.Fecha_solicitado.tm_mday = 01;
+	aux1.Fecha_solicitado.tm_mon = 11;
+	aux1.Fecha_solicitado.tm_year = 2001;
+	aux1.Fecha_turno.tm_mday = 19;
+	aux1.Fecha_turno.tm_mon = 12;
+	aux1.Fecha_turno.tm_year = 2001;
+	aux1.Matricula_medica = "00 - 334 - 0838";
+	aux1.Presento = true;
+
+	aux2.DNI = "86758484";
+	aux2.Fecha_solicitado.tm_mday = 02;
+	aux2.Fecha_solicitado.tm_mon = 11;
+	aux2.Fecha_solicitado.tm_year = 2001;
+	aux2.Fecha_turno.tm_mday = 18;
+	aux2.Fecha_turno.tm_mon = 8;
+	aux2.Fecha_turno.tm_year = 2002;
+	aux2.Matricula_medica = "00 - 334 - 0838";
+	aux2.Presento = true;
+	Consulta n = consulta_reciente(lista, tam);
+	ASSERT_FALSE(n.Fecha_turno.tm_mday, aux1.Fecha_turno.tm_mday);
+	ASSERT_FALSE(n.Fecha_turno.tm_mon, aux1.Fecha_turno.tm_mon);
+	ASSERT_FALSE(n.Fecha_turno.tm_year, aux1.Fecha_turno.tm_year);
+
+	delete[]lista;
+}
+ 
+
+TEST(cambiar_os, cambiar_os_correcto) {
+
+	string obra_social;
+
+	ASSERT_TRUE(cambiar_os(&obra_social));
+
+
+}
+TEST(buscar_consultas_pacientes, buscar_consultas_pacientes_correcto) {
+
+	Consulta* lista = new Consulta [2];
+	Consulta* sub_lista = new Consulta [0];
+	int tam = 2;
+	int tam_Sub = 0;
+	Consulta aux1;
+	Consulta aux2;
+	aux1.DNI = "86758484";
+	aux1.Fecha_solicitado.tm_mday = 01;
+	aux1.Fecha_solicitado.tm_mon = 11;
+	aux1.Fecha_solicitado.tm_year = 2001;
+	aux1.Fecha_turno.tm_mday = 19;
+	aux1.Fecha_turno.tm_mon = 12;
+	aux1.Fecha_turno.tm_year = 2001;
+	aux1.Matricula_medica = "00 - 334 - 0838";
+	aux1.Presento = true;
+
+	aux2.DNI = "87758484";
+	aux2.Fecha_solicitado.tm_mday = 02;
+	aux2.Fecha_solicitado.tm_mon = 11;
+	aux2.Fecha_solicitado.tm_year = 2001;
+	aux2.Fecha_turno.tm_mday = 18;
+	aux2.Fecha_turno.tm_mon = 8;
+	aux2.Fecha_turno.tm_year = 2002;
+	aux2.Matricula_medica = "00 - 334 - 0838";
+	aux2.Presento = true;
+
+
+	
+
+	ASSERT_TRUE(buscar_consultas_pacientes(aux1.DNI,lista, tam,&tam_Sub,sub_lista));
+
+	delete[]lista;
+    delete[]sub_lista;
+}
+TEST(buscar_consultas_pacientes, buscar_consultas_pacientes_incorrecto) {
+
+	Consulta* lista = new Consulta[2];
+	Consulta* sub_lista = new Consulta[0];
+	int tam = 2;
+	int tam_Sub = 0;
+	Consulta aux1;
+	Consulta aux2;
+	aux1.DNI = "86758484";
+	aux1.Fecha_solicitado.tm_mday = 01;
+	aux1.Fecha_solicitado.tm_mon = 11;
+	aux1.Fecha_solicitado.tm_year = 2001;
+	aux1.Fecha_turno.tm_mday = 19;
+	aux1.Fecha_turno.tm_mon = 12;
+	aux1.Fecha_turno.tm_year = 2001;
+	aux1.Matricula_medica = "00 - 334 - 0838";
+	aux1.Presento = true;
+
+	aux2.DNI = "87758484";
+	aux2.Fecha_solicitado.tm_mday = 02;
+	aux2.Fecha_solicitado.tm_mon = 11;
+	aux2.Fecha_solicitado.tm_year = 2001;
+	aux2.Fecha_turno.tm_mday = 18;
+	aux2.Fecha_turno.tm_mon = 8;
+	aux2.Fecha_turno.tm_year = 2002;
+	aux2.Matricula_medica = "00 - 334 - 0838";
+	aux2.Presento = true;
+
+
+
+
+	ASSERT_TRUE(buscar_consultas_pacientes("89558484", lista, tam, &tam_Sub, sub_lista));
+
+	delete[]lista;
+	delete[]sub_lista;
 }

@@ -9,7 +9,7 @@ using namespace std;
 ///*num Especialidad { hematologia,estomatologia, anestesiologia, nefrologia, psiquiatria, endocrinologia, reumatologia, genetica, hepatologia, pediatria,
 // geriatria,cardiologia,gastroenterologia,medicina_intensiva,medicina_forence,toxicologia,nutrilogia,oncologia_medica,medicina_ionterna,alegologia, infectologia,
 //neurologia};*/
-typedef struct Consulta {
+ struct Consulta {
 
 	string DNI;
 	tm Fecha_solicitado;
@@ -18,7 +18,7 @@ typedef struct Consulta {
 	string Matricula_medica;
 };
 
-typedef struct Contactos {
+ struct Contactos {
 	string DNI_paciente;
 	string Telefono;
 	string Celular;
@@ -27,7 +27,7 @@ typedef struct Contactos {
 
 };
 
-typedef struct Medicos {
+ struct Medicos {
 
 	string Matricula;
 	string Nombre;
@@ -37,12 +37,12 @@ typedef struct Medicos {
 	bool activo;
 };
 
-typedef struct Obra_Social {
+ struct Obra_Social {
 	unsigned int id;
 	string obra_soc;
 };
 
-typedef struct Paciente {
+ struct Paciente {
 	string DNI;
 	string Nombre;
 	string Apellido;
@@ -53,7 +53,7 @@ typedef struct Paciente {
 };
 
 // estructura secretaria con nuevos de pacientes 
-typedef struct Secretaria {
+ struct Secretaria {
 	string DNI;
 	string Nombre;
 	string Apellido;
