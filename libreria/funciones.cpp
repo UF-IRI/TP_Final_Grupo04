@@ -4,8 +4,8 @@
 bool chequear_DNI(string dni) {
 
     int tam = dni.length();//devuelvo el tamanio del string
-    if (tam != 9) {
-        return false; //por si el paciente tiene en su DNI 8 a 7 cifras
+    if (tam != 8) {
+        return false; //por si el paciente no tiene en su DNI 8 cifras 
     }
     for (int i = 0; i < tam; i++) {
 
