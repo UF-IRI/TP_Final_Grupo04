@@ -342,13 +342,14 @@ bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
     if (lista == NULL) {
         return false;
     }
-   
-
-    int pos = buscarpaciente(aux.DNI, lista, *tam);
-    if (pos != -1)
+    if (*tam != 0)
     {
-        return false;//dni ya se encuentra en la lista
-    }
+        int pos = buscarpaciente(aux.DNI, lista, *tam);
+        if (pos != -1)
+        {
+            return false;//dni ya se encuentra en la lista
+        }
+   }
     //redimensiono 
     bool boleano = redimensionarp(lista, tam, 1);
     if (boleano == false) 
@@ -361,7 +362,6 @@ bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
     
 }
 
-//bool leer_obra_soci(string nombrearchivo, ); // fijarse archivo
 
 int buscarpaciente(string dni, Paciente* lista, int tam)
 {
