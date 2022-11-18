@@ -61,13 +61,13 @@ bool chequeo_matricula(string matricula)
 {
     int tam = matricula.length();//devuelvo el tamanio del string
 
-    if (tam != 12) {
+    if (tam != 11) {
 
         return false;
     }
     for (int i = 1; i < tam; i++) {
 
-        if (matricula[i] < '0' || matricula[i] > '9' || matricula[i] != '-') {
+        if ((matricula[i] < '0' || matricula[i] > '9') && matricula[i] != '-') {
             return false;
         }
 
@@ -80,14 +80,14 @@ bool chequeo_celular(string cel)
 
     int tam = cel.length();//devuelvo el tamanio del string
 
-    if (tam<15 || tam>17) {
+    if (tam!=16) {
 
         return false;
     }
     if (cel[0] != '+') { return false; }
     for (int i = 1; i < tam; i++) {
 
-        if ((cel[i] < '0' || cel[i] > '9') && cel[i] != ' ') {
+        if ((cel[i] < '0' || cel[i] > '9') && cel[i]!='(' && cel[i] != ')') {
             return false;
         }
 
@@ -183,7 +183,7 @@ bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
      int tam = e.length();
      for (int i = 0; i < tam; i++) {
 
-         if ((e[i] >= 'a' && e[i] <= 'z') || (e[i] >= 'A' && e[i] <= 'Z') || (e[i] == ' ') ) {
+         if ((e[i] >= 'a' && e[i] <= 'z') || (e[i] >= 'A' && e[i] <= 'Z') || (e[i] == '_') ) {
              
          }
          else {
@@ -197,63 +197,8 @@ bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
 
 
  }
-//bool chequeo_especialedad(string e)
-//{
-//
-//    switch (e)
-//    {
-//    case  "hematologia":
-//        return true;
-//        break;
-//    case estomatologia:
-//        break;
-//    case anestesiologia:
-//        break;
-//    case nefrologia:
-//        break;
-//    case psiquiatria:
-//        break;
-//    case endocrinologia:
-//        break;
-//    case reumatologia:
-//        break;
-//    case genetica:
-//        break;
-//    case hepatologia:
-//        break;
-//    case pediatria:
-//        break;
-//    case geriatria:
-//        break;
-//    case cardiologia:
-//        break;
-//    case gastroenterologia:
-//        break;
-//    case medicina_intensiva:
-//        break;
-//    case medicina_forence:
-//        break;
-//    case toxicologia:
-//        break;
-//    case nutrilogia:
-//        break;
-//    case oncologia_medica:
-//        break;
-//    case medicina_ionterna:
-//        break;
-//    case alegologia:
-//        break;
-//    case infectologia:
-//        break;
-//    case neurologia:
-//        break;
-//    default:
-//        break;
-//    }
-//
-//
-//    return false;
-//}
+
+
  bool chequearfecha(int dia, int mes, int anio)
  {
      if (dia>0 && mes>0 && anio>0)
@@ -344,7 +289,7 @@ bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
     }
     if (*tam != 0)
     {
-        int pos = buscarpaciente(aux.DNI, lista, *tam);
+        int pos = buscarpaciente(aux.DNI, lista, *(tam));
         if (pos != -1)
         {
             return false;//dni ya se encuentra en la lista
@@ -357,7 +302,7 @@ bool agregar_paciente(Paciente aux, Paciente*& lista, int* tam) {
         return false;//no se logro redimensionar 
     }
         //agrego
-        lista[(*tam)] = aux;//agrego al paciente auxiliar
+        lista[(*tam-1)] = aux;//agrego al paciente auxiliar
         return true;
     
 }
@@ -398,44 +343,44 @@ bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar)
     return true;
 }
 
-bool Leer_Obrasoc(string nombre_arc, Obra_Social*& obrasoc, int* tam)
-{
-    Obra_Social aux;
-    string header;
-    fstream archivo;
-    archivo.open(nombre_arc, ios::in);
-    if (!(archivo.is_open()))
-        return false;
-    getline(archivo, header);
-    while (archivo) {
-        
-        archivo >> aux.id >> aux.obra_soc;
-        (* tam)++;
-        Agregar_obrasoc(obrasoc, tam, aux);
-    }
+//bool Leer_Obrasoc(string nombre_arc, Obra_Social*& obrasoc, int* tam)
+//{
+//    Obra_Social aux;
+//    string header;
+//    fstream archivo;
+//    archivo.open(nombre_arc, ios::in);
+//    if (!(archivo.is_open()))
+//        return false;
+//    getline(archivo, header);
+//    while (archivo) {
+//        
+//        archivo >> aux.id >> aux.obra_soc;
+//        *(tam)++;
+//        Agregar_obrasoc(obrasoc, tam, aux);
+//    }
+//
+//    return false;
+//}
 
-    return false;
-}
-
-bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato) {
-
-    Obra_Social* aux = new Obra_Social[*tam - 1];
-    if (lista == NULL || aux == NULL)
-        return false;
-    bool auxiliar=chequeoObra_social(dato.obra_soc, lista,  *tam);
-    if (auxiliar == true) 
-    {
-        return false;//la obra social ya se encontraba en la lista
-    }
-    for (int i = 0; i < *tam; i++) {
-    
-        *(aux+i) = lista[i];
-    
-    }
-    aux[*tam - 1] = dato;
-    delete[] lista;
-    lista = aux;
-}
+//bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato) {
+//
+//    Obra_Social* aux = new Obra_Social[*(tam)];
+//    if (lista == NULL || aux == NULL)
+//        return false;
+//    bool auxiliar=chequeoObra_social(dato.obra_soc, lista,  *tam);
+//    if (auxiliar == true) 
+//    {
+//        return false;//la obra social ya se encontraba en la lista
+//    }
+//    for (int i = 0; i < *tam; i++) {
+//    
+//        *(aux+i) = lista[i];
+//    
+//    }
+//    aux[*(tam) - 1] = dato;
+//    delete[] lista;
+//    lista = aux;
+//}
 void Rand_fecha(int* dia, int* mes, int* anio)
 {
     srand(time(NULL));
@@ -453,7 +398,7 @@ bool agregar_consulta(Consulta aux, Consulta*& lista, int* tam)
         return false;
     }
     //la agrego 
-    lista[*tam] = aux;//lo agrego
+    lista[*tam-1] = aux;//lo agrego
     return true;
 }
 bool redimensionarc(Consulta*& lista, int* tam, int cant_aumentar)
@@ -577,7 +522,7 @@ bool leer_medicos(string nombre_archivos, Medicos*& lista, int* tam) {
     Medicos aux;
     string header;
     char coma;
-
+  
     getline(archivo, header);
 
     while (archivo) {
@@ -591,6 +536,7 @@ bool leer_medicos(string nombre_archivos, Medicos*& lista, int* tam) {
         if (aux1 == true && aux2 == true && aux3 == true && aux4 == true && aux5 == true) {
 
             bool aux6 = agregar_medico(aux, lista,  tam); // si todo los chequeos dan bien, agrego medico 
+           
         }
 
     }
@@ -616,21 +562,21 @@ bool agregar_medico(Medicos aux, Medicos*& lista, int* tam) {
         return false;
     }
     else {
-        lista[*tam] = aux; // guardo el nuevo medico en la lista 
+        lista[*tam-1] = aux; // guardo el nuevo medico en la lista 
         return true;
     }
 
 }
 bool redimensionar_medicos(Medicos*& lista, int cantidad_aumentar, int* tam) {
 
-    Medicos* aux = new Medicos[*tam + cantidad_aumentar];
+    Medicos* aux = new Medicos[*(tam) + cantidad_aumentar];
     
     if (lista == NULL || aux == NULL) {
         return false;
     }
 
-    for (int i = 0; i < *tam; i++) {
-        aux[i] = lista[i];
+    for (int i = 0; i < (*tam); i++) {
+        *(aux+i) = lista[i];
     }
       
     delete[] lista;
@@ -640,7 +586,7 @@ bool redimensionar_medicos(Medicos*& lista, int cantidad_aumentar, int* tam) {
     return true; 
 }
 bool Redimensionar_Consultas(Consulta*& list, int tam) {
-    Consulta* aux = new Consulta[tam-1];
+    Consulta* aux = new Consulta[tam];
     if (list == NULL || aux == NULL) {
         return false;
     }
@@ -901,7 +847,7 @@ bool cambiar_os(string* obra_social) {
     int aux=rand()%2;
     Obra_Social* lista = new Obra_Social[0];
     int tam = 0;
-    Leer_Obrasoc("IRI_ObraSocial.csv", lista, &tam);
+    leer_Obrasoc("IRI_ObraSocial.csv", lista, &tam);
     if (aux==0) {
         return true;
     }

@@ -408,7 +408,6 @@ TEST(chequeoObra_social, chequeoObra_social_MAYUSCULA)
 
 TEST(agregar_paciente, agregar_paciente_correcto)
 {
-
 	Paciente aux;
 	aux.DNI = "412345597";
 	aux.Apellido = "pepito";
@@ -419,7 +418,7 @@ TEST(agregar_paciente, agregar_paciente_correcto)
 	aux.Nombre = "juan";
 	aux.Obra_soc = "OSDE";
 	aux.Sexo = 'M';
-	int tam = 1;
+	int tam = 0;
 
 	Paciente* lista = new Paciente[1];
 
@@ -440,27 +439,27 @@ TEST(agregar_paciente, agregar_paciente_incorrecto)
 	aux.Nombre = "juan";
 	aux.Obra_soc = "pami";
 	aux.Sexo = 'j';
-	int tam = 1;
+	int tam = 0;
 	Paciente* lista = new Paciente[1];
 	
 	ASSERT_FALSE(agregar_paciente(aux, lista, &tam));
-	delete[] lista;
+delete[] lista;
 }
 TEST(agregar_consulta, agregar_consulta_correcto)
 {
 	Consulta aux;
 	aux.DNI = "42819027";
-	aux.Fecha_solicitado.tm_mday = 25;
+aux.Fecha_solicitado.tm_mday = 25;
 	aux.Fecha_solicitado.tm_mon = 04;
 	aux.Fecha_solicitado.tm_year = 2022;
 	aux.Fecha_turno.tm_mday = 18;
 	aux.Fecha_turno.tm_mon = 12;
 	aux.Fecha_turno.tm_year = 2022;
 	Consulta* lista = new Consulta[1];
-	int tam = 1;
+	int tam = 0;
 
 	ASSERT_TRUE(agregar_consulta(aux, lista, &tam));
-	delete[] lista;
+delete[] lista;
 }
 //int buscarpaciente(string dni, Paciente* lista, int tam);
 

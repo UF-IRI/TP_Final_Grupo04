@@ -1,8 +1,9 @@
 #pragma once
 #include<iostream>
 #include<cstdlib>
-#include<string>
+#include<cstring>
 #include<ctime>
+#include <regex>
 #include<fstream>
 
 using namespace std;
