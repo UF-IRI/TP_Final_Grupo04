@@ -158,25 +158,25 @@ bool chequeo_Mail(string mail)
 }
 bool chequeargenero(char letra)
 {
-    if (letra != 'M' && letra != 'F'&& letra!='m' && letra!='f')
+    if (letra != 'M' && letra != 'F' && letra != 'm' && letra != 'f')
     {//chequeamos mayusculas y min
         return false;//no es un genero q el hospital considera
     }
-
+    else return true;
 }
-bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
-
-     for (int i = 0; i < tam; i++) {
-
-         if (Obra_soc == listaObra_soc[i].obra_soc) {
-             return true;
-         }
-
-     }
-     return false;
-
-
-}
+//bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
+//
+//     for (int i = 0; i < tam; i++) {
+//
+//         if (Obra_soc == listaObra_soc[i].obra_soc) {
+//             return true;
+//         }
+//
+//     }
+//     return false;
+//
+//
+//}
 
  bool chequeo_especialidades(string e) { // cambie el nombre de la funcion
 
@@ -265,7 +265,7 @@ bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam
             bool aux5 = chequeargenero(aux.Sexo);
             bool aux7 = chequeoNacimiento(aux.Nacimiento);
             bool aux8 = chequeo_estado(aux.Estado);
-            if (aux2 == true && aux3 == true && aux4 == true && aux5 == true && aux7 == true && aux8 == true) 
+            if (aux2 == true && aux3 == true && aux4 == true && aux5 == true && aux7 == true && aux8 == true)
             {
                 
                 bool aux_ = agregar_paciente(aux, Lista_pacientes, tam);
@@ -466,31 +466,31 @@ bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam
     };
     archivo.close();
 }
-bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
-{
-    fstream archivo;
-    archivo.open(nombredearchivo, ios::in);
-    if (!(archivo.is_open()))
-    {
-        return false;
-    }
-    if (Lista_obrasoc == NULL)
-    {
-        return false;
-    }
-    string header;
-    Obra_Social aux;
-    getline(archivo, header);
-    while (archivo)
-    {
-        //id_os,obra_social
-        archivo >> aux.id >> aux.obra_soc;
-        //agregar un chequeo de obra social, sea un string(por que? si esta en la lista de obra sociales es valida, ya esta la funcion que hace eso)
-        bool auxiliar = Agregar_obrasoc(Lista_obrasoc, tam, aux);//agrega a la lista de obra social
-    };
-
-    archivo.close();
-}
+//bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
+//{
+//    fstream archivo;
+//    archivo.open(nombredearchivo, ios::in);
+//    if (!(archivo.is_open()))
+//    {
+//        return false;
+//    }
+//    if (Lista_obrasoc == NULL)
+//    {
+//        return false;
+//    }
+//    string header;
+//    Obra_Social aux;
+//    getline(archivo, header);
+//    while (archivo)
+//    {
+//        //id_os,obra_social
+//        archivo >> aux.id >> aux.obra_soc;
+//        //agregar un chequeo de obra social, sea un string(por que? si esta en la lista de obra sociales es valida, ya esta la funcion que hace eso)
+//        bool auxiliar = Agregar_obrasoc(Lista_obrasoc, tam, aux);//agrega a la lista de obra social
+//    };
+//
+//    archivo.close();
+//}
 bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
 {
    
@@ -653,7 +653,7 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
            }
        }
     }
-    return p;
+    return p; //devuelve los paceintes para contactar
 
 }
 bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, int tam_c, Medicos* lista_m, int tam_m, Contactos* lista_contacto, int tam_contacto) {
@@ -723,7 +723,7 @@ bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n
     return true;
 
 }
-Consulta consulta_reciente(Consulta* lista,int tam) {
+Consulta consulta_reciente(Consulta* lista,int tam) {//devuelve la ultima consulta 
     double fecha1, fecha2;
     int pos=0;
     fecha1 = lista[0].Fecha_turno.tm_year*10000+lista[0].Fecha_turno.tm_mon*100 + lista[0].Fecha_turno.tm_mday;
@@ -841,21 +841,80 @@ bool escribir_consulta(string archivo, Consulta*& lista, int* tam) {
     archivo_esc.close();
     return true;
 }
-bool cambiar_os(string* obra_social) {
-    srand(time(NULL));
-    int aux=rand()%2;
-    Obra_Social* lista = new Obra_Social[0];
-    int tam = 0;
-    leer_Obrasoc("IRI_ObraSocial.csv", lista, &tam);
-    if (aux==0) {
-        return true;
-    }
-    else {
-        aux = rand() % tam;
-        *obra_social = lista[aux].obra_soc;
+bool Leer_Contacto(string archivo, Contactos*& lista, int* tam)
+{
+    fstream archivo_con;
+    archivo_con.open(archivo, ios::in);
+    if (!(archivo_con.is_open())) 
+    return false;
+    Contactos aux;
+    string header;
+    char coma;
+
+    getline(archivo_con, header);
+
+    while (archivo_con) {
+    
+        archivo_con >> aux.DNI_paciente >> coma >> aux.Telefono >> coma >> aux.Celular >> coma >> aux.Direccion >> coma >> aux.Mail;
+        bool aux1 = chequear_DNI(aux.DNI_paciente);
+        bool aux2 = chequeo_celular(aux.Telefono);
+        bool aux3 = chequeo_celular(aux.Celular);
+        bool aux4 = chequeo_direccion(aux.Direccion);
+        bool aux5 = chequeo_Mail(aux.Mail);
+        if (aux1 == true && aux2 == true && aux3 == true && aux4 == true && aux5 == true)
+            Agregar_Contacto(aux, lista, tam);
     }
 
+
+
+    return false;
 }
+bool Redimencionar_c(Contactos*& list, int* tam)
+{
+    Contactos* lista_aux = new Contactos[*(tam)+1];
+    
+    if (list == NULL || lista_aux == NULL) {
+        return false;
+    }
+    for (int i = 0; i < *tam; i++) {
+        lista_aux[i] = list[i];
+    }
+    delete[] list;
+    list = lista_aux;
+    (*tam) = (*tam) + 1;
+    return true;
+
+   
+}
+bool Agregar_Contacto(Contactos aux, Contactos*& list, int* tam)
+{
+    if (list == NULL ) {
+        return false;
+    }
+    bool var = Redimencionar_c(list, tam);
+    
+    if (var == true)
+    {
+        list[*tam - 1] = aux;
+        return true;
+    }
+    else return false;
+}
+//bool cambiar_os(string* obra_social) {
+//    srand(time(NULL));
+//    int aux=rand()%2;
+//    Obra_Social* lista = new Obra_Social[0];
+//    int tam = 0;
+//    leer_Obrasoc("IRI_ObraSocial.csv", lista, &tam);
+//    if (aux==0) {
+//        return true;
+//    }
+//    else {
+//        aux = rand() % tam;
+//        *obra_social = lista[aux].obra_soc;
+//    }
+//
+//}
 //bool chequeo_telefono(string tel);
 
 
