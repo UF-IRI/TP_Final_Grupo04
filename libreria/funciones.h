@@ -77,7 +77,7 @@ using namespace std;
 /// <param name="Lista_pacientes"></param>
 /// <param name="tam"></param>
 /// <returns></returns>
-bool leer_pacientes(string nombredearchivo, Obra_Social* lista_os, Paciente*& Lista_pacientes, int* tam, int tam_os);//esta funcion lee archivo pacientes.csv y los guarda en lista
+bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam);//esta funcion lee archivo pacientes.csv y los guarda en lista
 bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam);
 bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam);
 /// <summary>

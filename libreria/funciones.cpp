@@ -226,7 +226,7 @@ bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
      else { return false; }
  
  };
-bool leer_pacientes(string nombredearchivo,Obra_Social* lista_os, Paciente*& Lista_pacientes, int* tam,int tam_os)
+bool leer_pacientes(string nombredearchivo, Paciente*& Lista_pacientes, int* tam)
 {//devuelve la lista carga y su tam por derecha
     fstream archivo;
     archivo.open(nombredearchivo, ios::in);//abro en modo escritura
@@ -259,14 +259,13 @@ bool leer_pacientes(string nombredearchivo,Obra_Social* lista_os, Paciente*& Lis
             aux.Nacimiento.tm_mday = dia;
             aux.Nacimiento.tm_mon = mes;
             aux.Nacimiento.tm_year = anio;
-            bool aux1 = chequeoObra_social(aux.Obra_soc, lista_os, tam_os);
             bool aux2 = chequear_DNI(aux.DNI);
             bool aux3 = chequeo_AyN(aux.Nombre);
             bool aux4 = chequeo_AyN(aux.Apellido);
             bool aux5 = chequeargenero(aux.Sexo);
             bool aux7 = chequeoNacimiento(aux.Nacimiento);
             bool aux8 = chequeo_estado(aux.Estado);
-            if (aux1 == true && aux2 == true && aux3 == true && aux4 == true && aux5 == true && aux7 == true && aux8 == true) 
+            if (aux2 == true && aux3 == true && aux4 == true && aux5 == true && aux7 == true && aux8 == true) 
             {
                 
                 bool aux_ = agregar_paciente(aux, Lista_pacientes, tam);
