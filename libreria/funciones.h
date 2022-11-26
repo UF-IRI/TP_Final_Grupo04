@@ -123,7 +123,7 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes , Consul
 bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n, Consulta*& new_list); // busca la cantidad de consulta que tiene ese pasiente 
 Consulta consulta_reciente(Consulta* lista, int tam);
 bool archivar_paciente(Paciente aux);
-bool archivo_secretaria(Paciente* lista, int tam_paciente,Consulta* lista_c,int tam_c,Medicos* lista_m,int tam_m,Contactos* lista_contacto, int tam_contacto);
+bool archivo_secretaria(Paciente* lista, int tam_paciente,Consulta* lista_c,int tam_c,Medicos* lista_m,int tam_m,Contactos* lista_contacto, int tam_contacto, string nombre_archivo);//crea el archivo que luego va utilizar la secretaria
 bool pasar_archivo_secretaria(string archivo_secretaria, Consulta*& lista_c, int * tam_consulta );
 bool reprogramar();
 bool escribir_consulta(string archivo, Consulta*& lista, int* tam);

@@ -23,8 +23,9 @@ int main() {
    Leer_Contacto("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Contactos.csv",Lista_Contactos,&tam_contacto);
   
    sub_lista=chequeo_10_anios(Lista_Pacientes, tam_paciente, Lista_Consultas, tam_consulta,&tam_sublista );
-   
-    
+   //hay q llamar a las funciones de archivo secretaria y pasar arhivo secretaria
+    //archivo secretaria utiliza la lista que devuelve chequeo 10 anios
+   //ver si agregamos los chequeos adentro de la funcion agregar?
 
     delete[] Lista_Consultas;
     delete[]  Lista_Contactos;

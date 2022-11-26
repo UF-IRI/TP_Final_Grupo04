@@ -341,45 +341,6 @@ bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar)
     lista = listaaux;
     return true;
 }
-
-//bool Leer_Obrasoc(string nombre_arc, Obra_Social*& obrasoc, int* tam)
-//{
-//    Obra_Social aux;
-//    string header;
-//    fstream archivo;
-//    archivo.open(nombre_arc, ios::in);
-//    if (!(archivo.is_open()))
-//        return false;
-//    getline(archivo, header);
-//    while (archivo) {
-//        
-//        archivo >> aux.id >> aux.obra_soc;
-//        *(tam)++;
-//        Agregar_obrasoc(obrasoc, tam, aux);
-//    }
-//
-//    return false;
-//}
-
-//bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato) {
-//
-//    Obra_Social* aux = new Obra_Social[*(tam)];
-//    if (lista == NULL || aux == NULL)
-//        return false;
-//    bool auxiliar=chequeoObra_social(dato.obra_soc, lista,  *tam);
-//    if (auxiliar == true) 
-//    {
-//        return false;//la obra social ya se encontraba en la lista
-//    }
-//    for (int i = 0; i < *tam; i++) {
-//    
-//        *(aux+i) = lista[i];
-//    
-//    }
-//    aux[*(tam) - 1] = dato;
-//    delete[] lista;
-//    lista = aux;
-//}
 void Rand_fecha(int* dia, int* mes, int* anio)
 {
     srand(time(NULL));
@@ -466,31 +427,6 @@ bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam
     };
     archivo.close();
 }
-//bool leer_Obrasoc(string nombredearchivo, Obra_Social*& Lista_obrasoc, int* tam)
-//{
-//    fstream archivo;
-//    archivo.open(nombredearchivo, ios::in);
-//    if (!(archivo.is_open()))
-//    {
-//        return false;
-//    }
-//    if (Lista_obrasoc == NULL)
-//    {
-//        return false;
-//    }
-//    string header;
-//    Obra_Social aux;
-//    getline(archivo, header);
-//    while (archivo)
-//    {
-//        //id_os,obra_social
-//        archivo >> aux.id >> aux.obra_soc;
-//        //agregar un chequeo de obra social, sea un string(por que? si esta en la lista de obra sociales es valida, ya esta la funcion que hace eso)
-//        bool auxiliar = Agregar_obrasoc(Lista_obrasoc, tam, aux);//agrega a la lista de obra social
-//    };
-//
-//    archivo.close();
-//}
 bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
 {
    
@@ -656,12 +592,12 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
     return p; //devuelve los paceintes para contactar
 
 }
-bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, int tam_c, Medicos* lista_m, int tam_m, Contactos* lista_contacto, int tam_contacto) {
+bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, int tam_c, Medicos* lista_m, int tam_m, Contactos* lista_contacto, int tam_contacto, string nombre_archivo) {
     Consulta* consulta_aux = new Consulta[0];
     int tam_n = 0;
     Consulta ultima_consulta;
     fstream archivo;
-    archivo.open("secretaria.csv", ios::out | ios::app);
+    archivo.open(nombre_archivo, ios::out | ios::app);// nombre del archivo, pasarlo por el main C/:...
     if (!(archivo.is_open()))
     {
         return false;
