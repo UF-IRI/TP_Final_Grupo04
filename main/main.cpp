@@ -16,13 +16,20 @@ int main() {
     Medicos* Lista_Medicos = new Medicos[0];
     Contactos* Lista_Contactos = new Contactos[0];
     Paciente* sub_lista = new Paciente[0];
-    
-   leer_medicos("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Medicos.csv",Lista_Medicos,&tam_medico);
-   leer_Consultas("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Consultas.csv", Lista_Consultas, &tam_consulta);
-   leer_pacientes("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Pacientes.csv",Lista_Pacientes,&tam_paciente);
-   Leer_Contacto("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Contactos.csv",Lista_Contactos,&tam_contacto);
-  
-   sub_lista=chequeo_10_anios(Lista_Pacientes, tam_paciente, Lista_Consultas, tam_consulta,&tam_sublista );
+    Abrir_Archivado("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Archivados.csv");
+    leer_medicos("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Medicos.csv", Lista_Medicos, &tam_medico);
+    leer_Consultas("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Consultas.csv", Lista_Consultas, &tam_consulta);
+    leer_pacientes("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Pacientes.csv", Lista_Pacientes, &tam_paciente);
+    Leer_Contacto("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Contactos.csv", Lista_Contactos, &tam_contacto);
+
+    sub_lista = chequeo_10_anios(Lista_Pacientes, tam_paciente, Lista_Consultas, tam_consulta, &tam_sublista);
+    archivo_secretaria(sub_lista, tam_sublista, Lista_Consultas, tam_consulta, Lista_Medicos, tam_medico, Lista_Contactos, tam_contacto, "C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Secretaria.csv");
+   
+    pasar_archivo_secretaria("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Secretaria.csv", Lista_Consultas, &tam_consulta);
+    escribir_consulta("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Consultas.csv", Lista_Consultas, &tam_consulta);
+
+
+
    //hay q llamar a las funciones de archivo secretaria y pasar arhivo secretaria
     //archivo secretaria utiliza la lista que devuelve chequeo 10 anios
    //ver si agregamos los chequeos adentro de la funcion agregar?

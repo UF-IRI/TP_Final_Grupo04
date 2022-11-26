@@ -406,7 +406,7 @@ TEST(buscarpaciente, BUSCARPACIENTE_incorrecto)
 	lista[0] = aux1;
 	lista[1] = aux2;
 	lista[2] = aux3;
-	ASSERT_FALSE(buscarpaciente("40502265", lista, tam), -1);
+	EXPECT_THAT(buscarpaciente("56787912", lista, tam), -1);
 	delete[] lista;
 }
 

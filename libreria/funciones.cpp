@@ -376,7 +376,33 @@ bool redimensionarc(Consulta*& lista, int* tam, int cant_aumentar)
     lista = auxiliar;
     (*tam) = (*tam) + cant_aumentar;
     return true;
-}//funcion para redimensionar lista de consultas
+}
+bool Ordenar_Paciente(Paciente*& lista, int tam)
+{
+    if (lista == NULL)
+        return false;
+   
+    Paciente aux;
+    
+    for (int i = 0; i < tam-1; i++)
+    {
+        int cont = 0;
+        for (int j = 0; j < tam - 1 - i; j++) {
+            if (lista[j].Apellido > lista[j + i].Apellido)
+            {
+                aux = lista[j];
+                lista[j] = lista[j + i];
+                lista[j + i] = aux;
+                cont++;
+            }
+        }
+        if (cont == 0)
+            return true;
+    }
+
+    return true;
+}
+//funcion para redimensionar lista de consultas
 bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam)
 {
     fstream archivo;
@@ -606,7 +632,7 @@ bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, in
     char barra = '/';
     int pos = 0;
     //escribo el header
-    archivo << "DNI" << "nombre" << coma << "apellido" << coma << "telefo de contacto" << coma << "fecha ultima consulta" << coma << "matricula medico" << coma << "apellido medico" << coma << "telefono medico" << coma << "especialidad medico" << coma << "obra social" << endl;
+    archivo << "DNI" <<coma << "nombre" << coma << "apellido" << coma << "telefo de contacto" << coma << "fecha ultima consulta" << coma << "matricula medico" << coma << "apellido medico" << coma << "telefono medico" << coma << "especialidad medico" << coma << "obra social" << endl;
         for (int i = 0; i < tam_paciente; i++)
         {
             buscar_consultas_pacientes(lista[i].DNI, lista_c, tam_c, &tam_n, consulta_aux);
@@ -623,17 +649,17 @@ bool archivo_secretaria(Paciente* lista, int tam_paciente, Consulta* lista_c, in
         }
         
         archivo.close();
+        delete[] consulta_aux;
         return true;
 }
 bool archivar_paciente(Paciente aux) {
     fstream archivo;
     char coma = ',';
     char barra = '/';
-    archivo.open("archivados.csv", ios::out | ios::app);
+    archivo.open("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Archivados.csv", ios::app);
     if (!(archivo.is_open())) {
         return false;
     }
-    archivo << "DNI" << coma << "nombre" << coma << "apellido" << coma << "sexo" << coma << "natalicio" << coma << "estado" << coma << "id_os" << endl;
     archivo << aux.DNI << coma << aux.Nombre << coma << aux.Apellido << coma << aux.Sexo << coma << aux.Nacimiento.tm_mday << barra << aux.Nacimiento.tm_mon << barra << aux.Nacimiento.tm_year << coma << aux.Estado << coma << aux.Obra_soc << endl;
     archivo.close();
     return true;
@@ -716,7 +742,7 @@ bool pasar_archivo_secretaria(string archivo_secretaria, Consulta*& lista_c, int
 
         reprogra = reprogramar();
 
-        if (reprogra = true) {
+        if (reprogra == true) {
 
             Rand_fecha(&aux1.Fecha_turno.tm_mday, &aux1.Fecha_turno.tm_mon, &aux1.Fecha_turno.tm_year);
 
@@ -803,7 +829,7 @@ bool Leer_Contacto(string archivo, Contactos*& lista, int* tam)
 
 
 
-    return false;
+    return true;
 }
 bool Redimencionar_c(Contactos*& list, int* tam)
 {
@@ -835,6 +861,20 @@ bool Agregar_Contacto(Contactos aux, Contactos*& list, int* tam)
         return true;
     }
     else return false;
+}
+bool Abrir_Archivado(string nombre_arc)
+{
+    fstream archivo;
+    char coma = ',';
+    char barra = '/';
+    archivo.open(nombre_arc, ios::out);
+    if (!(archivo.is_open())) {
+        return false;
+    }
+    archivo << "DNI" << coma << "nombre" << coma << "apellido" << coma << "sexo" << coma << "natalicio" << coma << "estado" << coma << "id_os" << endl;
+    
+    archivo.close();
+    return true;
 }
 //bool cambiar_os(string* obra_social) {
 //    srand(time(NULL));

@@ -109,7 +109,8 @@ int buscarpaciente(string dni, Paciente* lista, int tam);//busca al paciente en 
 bool redimensionarp(Paciente*& lista, int* tam, int cant_aumentar);//redimensiona una lista de pacientes
 bool agregar_consulta(Consulta aux, Consulta*& lista, int* tam);//funcion para agregar consultas en una lista
 bool redimensionarc(Consulta*& lista, int* tam, int cant_aumentar);//funcion para redimensionar lista de consultas
-//bool Agregar_obrasoc(Obra_Social*& lista, int* tam, Obra_Social dato);
+bool Ordenar_Paciente(Paciente*& lista, int tam);
+
 string buscartelefono(string dni, Contactos* lista, int tam);
 
 void Rand_fecha(int* dia, int* mes, int* anio);//genera fechas random
@@ -130,4 +131,4 @@ bool escribir_consulta(string archivo, Consulta*& lista, int* tam);
 bool Leer_Contacto(string archivo, Contactos*& lista, int* tam);
 bool Redimencionar_c(Contactos*& list, int* tam);
 bool Agregar_Contacto(Contactos aux, Contactos*& list, int* tam);
-//bool cambiar_os(string* obra_social);
+bool Abrir_Archivado(string nombre_arc);
