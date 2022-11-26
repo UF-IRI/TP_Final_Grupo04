@@ -455,17 +455,21 @@ bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam
 }
 bool chequeofechasolicitado(tm fecha_solicitado, tm fecha_turno)
 {
-   
-    if (fecha_solicitado.tm_year < 0 || fecha_solicitado.tm_mon < 0 ||fecha_solicitado.tm_mday < 0 ||fecha_turno.tm_year < 0 || fecha_turno.tm_mon < 0 || fecha_turno.tm_mday <0)
-        return false;
-    
-    double fecha1 = fecha_solicitado.tm_year * 10000 + fecha_solicitado.tm_mon * 100 + fecha_solicitado.tm_mday;
-    double fecha2= fecha_turno.tm_year * 10000 + fecha_turno.tm_mon * 100 + fecha_turno.tm_mday;
-    
-    if (fecha1 < fecha2)
-        return true;
-    else return false;
 
+    if (fecha_solicitado.tm_year < 0 || fecha_solicitado.tm_mon < 0 || fecha_solicitado.tm_mday < 0 || fecha_turno.tm_year < 0 || fecha_turno.tm_mon < 0 || fecha_turno.tm_mday < 0)
+        return false;
+
+    double fecha1 = (fecha_solicitado.tm_year * 10000) + (fecha_solicitado.tm_mon * 100) + (fecha_solicitado.tm_mday);
+    double fecha2 = (fecha_turno.tm_year * 10000) + (fecha_turno.tm_mon * 100)+ (fecha_turno.tm_mday);
+
+    if (fecha1 < fecha2)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 
     
 }
@@ -586,20 +590,20 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
 
     Paciente* sub_lista = new Paciente[tam_pacientes];
     int cont_lista = 0;
-    Consulta* sublista = new Consulta[0];
-    int tam_sublista = 0;
+    Consulta* sublista = new Consulta[0];//lista para la funcion buscar consultas
+    int tam_sublista = 0;//tam de la sublista
     time_t now;
     time(&now);
-    struct tm* aux = localtime(&now);
-    Paciente* p = new Paciente[0];
-    *tam_sublista1 = 0;
+    struct tm* aux = localtime(&now);//se utiliza para ver si pasaron 10 anios
+    Paciente* p = new Paciente[0];//lista que se devuelve
+    *tam_sublista1 = 0;//tam de la lista q se devuelve
     if (p == NULL) {
         return NULL;
     }
     for (int i = 0; i < tam_pacientes; i++) {
        bool aux1=buscar_consultas_pacientes(lista_pacientes[i].DNI, lista_consulta, tam_consulta, &tam_sublista, sublista);
        Consulta aux2=consulta_reciente(sublista, tam_sublista);
-       if (aux->tm_year-aux2.Fecha_turno.tm_year>=10) {
+       if (aux->tm_year - aux2.Fecha_turno.tm_year>=10) {
            if (aux2.Presento==false && lista_pacientes[i].Estado=="fallecido") {
                bool auxa= archivar_paciente(lista_pacientes[i]);
            }

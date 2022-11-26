@@ -27,11 +27,8 @@ int main() {
    
     pasar_archivo_secretaria("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Secretaria.csv", Lista_Consultas, &tam_consulta);
     escribir_consulta("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Consultas.csv", Lista_Consultas, &tam_consulta);
+    //funciones que utlizan consulta, leer consultas(ver cuantas consultas lee), chequeo 10 anios, pasar archivo secretaria,escribir archivo secretaria,
 
-
-
-   //hay q llamar a las funciones de archivo secretaria y pasar arhivo secretaria
-    //archivo secretaria utiliza la lista que devuelve chequeo 10 anios
    //ver si agregamos los chequeos adentro de la funcion agregar?
 
     delete[] Lista_Consultas;
