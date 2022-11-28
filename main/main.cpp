@@ -25,8 +25,8 @@ int main() {
     sub_lista = chequeo_10_anios(Lista_Pacientes, tam_paciente, Lista_Consultas, tam_consulta, &tam_sublista);
     archivo_secretaria(sub_lista, tam_sublista, Lista_Consultas, tam_consulta, Lista_Medicos, tam_medico, Lista_Contactos, tam_contacto, "C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Secretaria.csv");
    
-    pasar_archivo_secretaria("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Secretaria.csv", Lista_Consultas, &tam_consulta);
-    escribir_consulta("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Consultas.csv", Lista_Consultas, &tam_consulta);
+   pasar_archivo_secretaria("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Secretaria.csv", Lista_Consultas, &tam_consulta);
+   escribir_consulta("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Consultas.csv", Lista_Consultas, &tam_consulta);
     //funciones que utlizan consulta, leer consultas(ver cuantas consultas lee), chequeo 10 anios, pasar archivo secretaria,escribir archivo secretaria,
 
    //ver si agregamos los chequeos adentro de la funcion agregar?
