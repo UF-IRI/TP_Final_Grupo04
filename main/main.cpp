@@ -21,7 +21,7 @@ int main() {
     leer_Consultas("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Consultas.csv", Lista_Consultas, &tam_consulta);
     leer_pacientes("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Pacientes.csv", Lista_Pacientes, &tam_paciente);
     Leer_Contacto("C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Contactos.csv", Lista_Contactos, &tam_contacto);
-
+    Ordenar_Paciente(Lista_Pacientes, tam_paciente);
     sub_lista = chequeo_10_anios(Lista_Pacientes, tam_paciente, Lista_Consultas, tam_consulta, &tam_sublista);
     archivo_secretaria(sub_lista, tam_sublista, Lista_Consultas, tam_consulta, Lista_Medicos, tam_medico, Lista_Contactos, tam_contacto, "C:/Users/Electro PC/Desktop/facultad/Redes e Internet/Final 2022/final/data_files/input/Secretaria.csv");
    

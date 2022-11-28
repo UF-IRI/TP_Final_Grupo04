@@ -401,7 +401,8 @@ bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam
     }
     string header;
     char coma;
-    getline(archivo,header);
+    //getline(archivo,header);
+    archivo >> header>>coma>>header>>coma>>header>>coma>>header>>coma>>header;
     Consulta aux;
     if (Lista_consultas == NULL)
     {
