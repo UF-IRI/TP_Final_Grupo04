@@ -164,19 +164,7 @@ bool chequeargenero(char letra)
     }
     else return true;
 }
-//bool chequeoObra_social(string Obra_soc, Obra_Social*listaObra_soc, int tam) {
-//
-//     for (int i = 0; i < tam; i++) {
-//
-//         if (Obra_soc == listaObra_soc[i].obra_soc) {
-//             return true;
-//         }
-//
-//     }
-//     return false;
-//
-//
-//}
+
 
  bool chequeo_especialidades(string e) { // cambie el nombre de la funcion
 
@@ -419,12 +407,12 @@ bool leer_Consultas(string nombredearchivo, Consulta*& Lista_consultas, int* tam
     {
         return false;
     }
-    int dia_s;//dia_solicitado
-    int mes_s;
-    int anio_s;
-    int dia_t;//dia_turno
-    int mes_t;
-    int anio_t;
+    int dia_s=0;//dia_solicitado
+    int mes_s=0;
+    int anio_s=0;
+    int dia_t=0;//dia_turno
+    int mes_t=0;
+    int anio_t=0;
     char barra;
     while (archivo)
     {
@@ -602,21 +590,26 @@ Paciente* chequeo_10_anios(Paciente* lista_pacientes, int tam_pacientes, Consult
     }
     for (int i = 0; i < tam_pacientes; i++) {
        bool aux1=buscar_consultas_pacientes(lista_pacientes[i].DNI, lista_consulta, tam_consulta, &tam_sublista, sublista);
-       Consulta aux2=consulta_reciente(sublista, tam_sublista);
-       if (aux->tm_year - aux2.Fecha_turno.tm_year>=10) {
-           if (aux2.Presento==false && lista_pacientes[i].Estado=="fallecido") {
-               bool auxa= archivar_paciente(lista_pacientes[i]);
-           }
-      }
-       else {
-           if (aux2.Presento==false) {
-               if (lista_pacientes[i].Estado=="fallecido") {
-                   bool aux4 = archivar_paciente(lista_pacientes[i]);
+       if (aux1 == true && sublista !=NULL && tam_sublista!=0)
+       {
+           Consulta aux2 = consulta_reciente(sublista, tam_sublista);
+          
+              if ((aux->tm_year+1900)- aux2.Fecha_turno.tm_year >= 10) {
+                   if (aux2.Presento == false && lista_pacientes[i].Estado == "fallecido") {
+                       bool auxa = archivar_paciente(lista_pacientes[i]);
+                   }
                }
-               if (lista_pacientes[i].Estado != "internado") {
-                   agregar_paciente(lista_pacientes[i], p, tam_sublista1);
+               else {
+                   if (aux2.Presento == false) {
+                       if (lista_pacientes[i].Estado == "fallecido") {
+                           bool aux4 = archivar_paciente(lista_pacientes[i]);
+                       }
+                       if (lista_pacientes[i].Estado != "internado") {
+                           agregar_paciente(lista_pacientes[i], p, tam_sublista1);
+                       }
+                   }
                }
-           }
+           
        }
     }
     return p; //devuelve los paceintes para contactar
@@ -669,6 +662,8 @@ bool archivar_paciente(Paciente aux) {
     return true;
 }
 bool buscar_consultas_pacientes(string dni, Consulta* lista, int tam, int* tam_n, Consulta*& new_list) {
+    if (lista == NULL || new_list == NULL)
+        return false;
     Consulta* lista_aux = new Consulta[tam];
 
     int contador_lista = 0;
@@ -801,7 +796,7 @@ bool escribir_consulta(string archivo, Consulta*& lista, int* tam) {
     for (int i = 0; i < *tam; i++) {
 
         archivo_esc << lista[i].DNI << coma << lista[i].Fecha_solicitado.tm_mday << barra << lista[i].Fecha_solicitado.tm_mon << barra << lista[i].Fecha_solicitado.tm_year << coma << lista[i].Fecha_turno.tm_mday << barra << lista[i].Fecha_turno.tm_mon << barra << lista[i].Fecha_turno.tm_year << coma << lista[i].Presento << coma << lista[i].Matricula_medica << endl;
-            // por si las dudas cambiar orden de fechas como esta en el csv
+            
 
     }
     archivo_esc.close();
