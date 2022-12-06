@@ -733,7 +733,7 @@ bool pasar_archivo_secretaria(string archivo_secretaria, Consulta*& lista_c, int
     bool reprogra;
     Consulta aux1;
     bool fecha_soli;
-
+  
 
     while (archivo_secre) {
 
@@ -741,7 +741,7 @@ bool pasar_archivo_secretaria(string archivo_secretaria, Consulta*& lista_c, int
 
 
         reprogra = reprogramar();
-
+        aux.Obra_soc = cambiar_os(aux.Obra_soc);// si quiere cambiar la obra social pisa el dato anterior
         if (reprogra == true) {
 
             Rand_fecha(&aux1.Fecha_turno.tm_mday, &aux1.Fecha_turno.tm_mon, &aux1.Fecha_turno.tm_year);
@@ -876,22 +876,34 @@ bool Abrir_Archivado(string nombre_arc)
     archivo.close();
     return true;
 }
-//bool cambiar_os(string* obra_social) {
-//    srand(time(NULL));
-//    int aux=rand()%2;
-//    Obra_Social* lista = new Obra_Social[0];
-//    int tam = 0;
-//    leer_Obrasoc("IRI_ObraSocial.csv", lista, &tam);
-//    if (aux==0) {
-//        return true;
-//    }
-//    else {
-//        aux = rand() % tam;
-//        *obra_social = lista[aux].obra_soc;
-//    }
-//
-//}
-//bool chequeo_telefono(string tel);
+string cambiar_os(string obrasoc) {
+    srand(time(NULL));
+    int aux=rand()%2;
+    if (aux == 0) {
+        aux = rand() % 6;
+        switch (aux)
+        {
+        case 0:
+            return "OSDE";
+        case 1:
+            return "Italiano";
+        case 2:
+            return "Espanyol";
+        case 3:
+            return "ALemen";
+        case 4:
+            return "IOSFA";
+        case 5:
+            return "Medicus";
+        default:
+            break;
+        }
+
+    }
+    else return obrasoc;
+
+}
+
 
 
 //bool chequeo_celular(string cel);

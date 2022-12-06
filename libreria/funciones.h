@@ -132,3 +132,4 @@ bool Leer_Contacto(string archivo, Contactos*& lista, int* tam);
 bool Redimencionar_c(Contactos*& list, int* tam);
 bool Agregar_Contacto(Contactos aux, Contactos*& list, int* tam);
 bool Abrir_Archivado(string nombre_arc);
+string cambiar_os(string obrasoc);
